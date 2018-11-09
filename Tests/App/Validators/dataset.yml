@@ -1,0 +1,21 @@
+users:
+  -
+    id: 1
+    email: first@test.ru
+    name: first
+    password: 123456
+    gender: 1
+    dob: 2018-11-09T16:22:21+00:00
+    createdAt: 2018-11-09T16:22:21+00:00
+    accessToken: 123456
+    ip: 127.0.0.1
+  -
+    id: 2
+    email: second@test.ru
+    name: second
+    password: 123456
+    gender: 1
+    dob: 2018-11-09T16:22:21+00:00
+    createdAt: 2018-11-09T16:22:21+00:00
+    accessToken: 123456
+    ip: 127.0.0.1
