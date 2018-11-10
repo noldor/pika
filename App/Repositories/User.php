@@ -78,6 +78,17 @@ SQL;
         return $user;
     }
 
+    public function hasByEmail(string $email): bool
+    {
+        try {
+            $this->findByEmail($email);
+
+            return true;
+        } catch (EntityNotFoundException $exception) {
+            return false;
+        }
+    }
+
     public function findByAccessToken(string $token): UserModel
     {
         $payload = JWT::decode($token);

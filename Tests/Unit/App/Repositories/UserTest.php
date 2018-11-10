@@ -76,6 +76,18 @@ class UserTest extends DatabaseTestCase
         $this->repository->findByEmail('not@test.ru');
     }
 
+    public function testHasByEmailReturnTrueWhenUserExist(): void
+    {
+        $this->createUser('test@test.ru', 'name', JWT::encode(['email' => 'test@test.ru']));
+
+        $this->assertTrue($this->repository->hasByEmail('test@test.ru'));
+    }
+
+    public function testHasByEmailReturnFalseWhenUserDoesNotExist(): void
+    {
+        $this->assertFalse($this->repository->hasByEmail('test@test.ru'));
+    }
+
     public function testRepositoryCanFindUserByAccessToken(): void
     {
         $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOjU1OTQ3NjU0NjQ0NTc0Nzg2NDN9.eyJlbWFpbCI6ImZpcnN0QHRlc3QucnUifQ==.nddz97FBeb96vIhg0DUaUJhCCRr9hatlQgZUKNioz2Ki01xD6aqNPf8L7enVPZmMYNemXxTx+5jo5U6uUfevwA==';

@@ -5,10 +5,7 @@ declare(strict_types=1);
 namespace Tests\Unit\App\Controllers\User;
 
 use App\Controllers\User\Create;
-use App\Repositories\User;
 use DateTime;
-use Exception;
-use Support\Exceptions\EntityNotFoundException;
 use Support\Exceptions\ValidationException;
 use Support\JWT;
 use Support\Request\Request;
@@ -16,17 +13,6 @@ use Tests\DatabaseTestCase;
 
 class CreateTest extends DatabaseTestCase
 {
-    /**
-     * @var \App\Repositories\User
-     */
-    private $userRepository;
-
-    protected function setUp(): void
-    {
-        parent::setUp();
-        $this->userRepository = new User(static::$pdo);
-    }
-
     public function testConstructorThrowValidationExceptionWhenEmailDoesNotExist(): void
     {
         $this->expectException(ValidationException::class);

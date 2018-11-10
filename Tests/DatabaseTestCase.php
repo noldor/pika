@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Tests;
 
 use App\Models\User;
+use App\Repositories\User as UserRepository;
 use DateTime;
 use PDO;
 use PHPUnit\DbUnit\Database\DefaultConnection;
@@ -13,11 +14,25 @@ use PHPUnit\DbUnit\TestCaseTrait;
 
 abstract class DatabaseTestCase extends TestCase
 {
-    use TestCaseTrait;
+    use TestCaseTrait {
+        setUp as traitSetUp;
+    }
 
     private $connection;
 
+    /**
+     * @var \App\Repositories\User
+     */
+    protected $userRepository;
+
     protected static $pdo;
+
+    protected function setUp()
+    {
+        parent::setUp();
+        $this->traitSetUp();
+        $this->userRepository = new UserRepository(static::$pdo);
+    }
 
     public function getConnection(): DefaultConnection
     {
@@ -57,7 +72,7 @@ abstract class DatabaseTestCase extends TestCase
             $phone
         );
 
-        (new \App\Repositories\User(static::$pdo))->create($user);
+        (new UserRepository(static::$pdo))->create($user);
 
         return $user;
     }

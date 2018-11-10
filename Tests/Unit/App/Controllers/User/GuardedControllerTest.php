@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Tests\Unit\App\Controllers\User;
 
 use App\Controllers\User\GuardedController;
-use App\Repositories\User;
 use Support\Exceptions\EntityNotFoundException;
 use Support\Exceptions\Unauthenticated;
 use Support\JWT;
@@ -26,7 +25,7 @@ class GuardedControllerTest extends DatabaseTestCase
         $this->expectException(Unauthenticated::class);
         $this->expectExceptionMessage('Missing access_token!');
 
-        $this->getMockForAbstractClass(GuardedController::class, [Request::create([]), new User(static::$pdo)]);
+        $this->getMockForAbstractClass(GuardedController::class, [Request::create([]), $this->userRepository]);
     }
 
     public function testContructorThrowExceptionWhenCanNotFindUserByAccessToken(): void
@@ -37,7 +36,7 @@ class GuardedControllerTest extends DatabaseTestCase
 
         $this->getMockForAbstractClass(
             GuardedController::class,
-            [Request::create(['access_token' => JWT::encode(['email' => 'some@test.ru'])]), new User(static::$pdo)]
+            [Request::create(['access_token' => JWT::encode(['email' => 'some@test.ru'])]), $this->userRepository]
         );
     }
 }
