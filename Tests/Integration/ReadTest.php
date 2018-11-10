@@ -16,12 +16,19 @@ class ReadTest extends BrowserTestCase
         $this->email = $this->faker->email;
         $this->token = $this->createUser($this->email, $this->faker->userName);
     }
+
     public function testReadUnknownUser(): void
     {
         try {
-            $this->http->request('GET', 'api/user', ['query' => [
-                'access_token' => JWT::encode(['email' => 'undefined@test.ru'], \APP_SECRET_KEY)
-            ]]);
+            $this->http->request(
+                'GET',
+                'api/user',
+                [
+                    'query' => [
+                        'access_token' => JWT::encode(['email' => 'undefined@test.ru'], \APP_SECRET_KEY)
+                    ]
+                ]
+            );
         } catch (ClientException $exception) {
             $this->assertSame(404, $exception->getResponse()->getStatusCode());
             $this->assertJson(
@@ -33,9 +40,15 @@ class ReadTest extends BrowserTestCase
 
     public function testReadUser(): void
     {
-        $result = $this->http->request('GET', 'api/user', ['query' => [
-            'access_token' => $this->token
-        ]]);
+        $result = $this->http->request(
+            'GET',
+            'api/user',
+            [
+                'query' => [
+                    'access_token' => $this->token
+                ]
+            ]
+        );
         $this->assertSame(200, $result->getStatusCode());
         $this->assertJson($result->getBody()->getContents());
     }

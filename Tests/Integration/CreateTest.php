@@ -13,9 +13,15 @@ class CreateTest extends BrowserTestCase
     public function testCreateUserWithoutAllNecessaryFields(): void
     {
         try {
-            $this->http->request('post', 'api/user', ['form_params' => [
-                'email' => 'some@mail.ru'
-            ]]);
+            $this->http->request(
+                'post',
+                'api/user',
+                [
+                    'form_params' => [
+                        'email' => 'some@mail.ru'
+                    ]
+                ]
+            );
         } catch (ClientException $exception) {
             $this->assertSame(400, $exception->getResponse()->getStatusCode());
             $this->assertJson(
@@ -28,13 +34,19 @@ class CreateTest extends BrowserTestCase
     public function testCreateUserWhenValidationFailed(): void
     {
         try {
-            $this->http->request('post', 'api/user', ['form_params' => [
-                'email' => 'some',
-                'name' => 'some-name',
-                'password' => '123456',
-                'dob' => (new DateTime())->format(DateTime::ATOM),
-                'gender' => '2'
-            ]]);
+            $this->http->request(
+                'post',
+                'api/user',
+                [
+                    'form_params' => [
+                        'email' => 'some',
+                        'name' => 'some-name',
+                        'password' => '123456',
+                        'dob' => (new DateTime())->format(DateTime::ATOM),
+                        'gender' => '2'
+                    ]
+                ]
+            );
         } catch (ClientException $exception) {
             $this->assertSame(400, $exception->getResponse()->getStatusCode());
             $this->assertSame(
@@ -46,18 +58,27 @@ class CreateTest extends BrowserTestCase
 
     public function testCreateUser(): void
     {
-        $result = $this->http->request('post', 'api/user', ['form_params' => [
-            'email' => $this->faker->email,
-            'name' => $this->faker->userName,
-            'password' => '123456',
-            'dob' => (new DateTime())->format(DateTime::ATOM),
-            'gender' => '2'
-        ]]);
+        $result = $this->http->request(
+            'post',
+            'api/user',
+            [
+                'form_params' => [
+                    'email' => $this->faker->email,
+                    'name' => $this->faker->userName,
+                    'password' => '123456',
+                    'dob' => (new DateTime())->format(DateTime::ATOM),
+                    'gender' => '2'
+                ]
+            ]
+        );
 
         $this->assertSame(200, $result->getStatusCode());
-        $this->assertArraySubset([
-            'result' => true,
-            'message' => ''
-        ], \json_decode($result->getBody()->getContents(), true));
+        $this->assertArraySubset(
+            [
+                'result' => true,
+                'message' => ''
+            ],
+            \json_decode($result->getBody()->getContents(), true)
+        );
     }
 }

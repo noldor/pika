@@ -114,7 +114,9 @@ class UserTest extends DatabaseTestCase
     public function testIsValidPasswordWhenPasswordLessThenSixOrGreaterThan255(string $password): void
     {
         $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('User password must have length greater or equal to 6 chars and less or equal to 255 chars!');
+        $this->expectExceptionMessage(
+            'User password must have length greater or equal to 6 chars and less or equal to 255 chars!'
+        );
 
         $this->validator->isValidPassword($password);
     }

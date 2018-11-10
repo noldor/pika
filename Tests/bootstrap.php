@@ -7,5 +7,5 @@ require __DIR__ . '/../bootstrap/config.php';
 
 function stubPath(string $path): string
 {
-    return __DIR__ . '/Stubs/'. $path;
+    return __DIR__ . '/Stubs/' . $path;
 }

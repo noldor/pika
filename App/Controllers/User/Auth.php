@@ -14,7 +14,7 @@ use Support\Response\ResponseInterface;
 class Auth extends Controller
 {
     /**
-     * @var \App\Models\User|bool
+     * @var \App\Models\User
      */
     private $user;
 

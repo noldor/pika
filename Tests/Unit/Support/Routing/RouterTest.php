@@ -19,7 +19,7 @@ class RouterTest extends TestCase
 
     protected function setUp(): void
     {
-        $this->router = new Router;
+        $this->router = new Router();
     }
 
     public function testThatRouterCanLoadRoutesFromFile(): void

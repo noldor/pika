@@ -11,14 +11,19 @@ class ExceptionJsonResponseTest extends TestCase
 {
     public function testResponseFormat(): void
     {
-        $data = $this->getOutput(function () {
-            (new ExceptionJsonResponse(500, 'some error'))->send();
-        });
+        $data = $this->getOutput(
+            function () {
+                (new ExceptionJsonResponse(500, 'some error'))->send();
+            }
+        );
 
-        $this->assertSame([
-            'result' => false,
-            'message' => 'some error',
-            'data' => null
-        ], $data);
+        $this->assertSame(
+            [
+                'result' => false,
+                'message' => 'some error',
+                'data' => null
+            ],
+            $data
+        );
     }
 }

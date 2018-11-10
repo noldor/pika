@@ -13,6 +13,7 @@ use Support\JWT;
 class User
 {
     private const FIND_BY_ID_QUERY = 'SELECT * from users WHERE id = :id';
+
     private const FIND_BY_EMAIL_QUERY = 'SELECT * from users WHERE email = :email';
 
     private const CREATE_USER_QUERY = <<<SQL
@@ -28,7 +29,6 @@ SQL;
 SQL;
 
     private const UPDATE_ACCESS_TOKEN_QUERY = 'UPDATE users SET accessToken = :accessToken WHERE id = :id';
-
 
     private const DELETE_BY_NAME_QUERY = 'DELETE FROM users WHERE id = :id';
 
@@ -91,17 +91,19 @@ SQL;
 
         $statement = $this->pdo->prepare(static::CREATE_USER_QUERY);
 
-        $statement->execute([
-            ':email' => $user->getEmail(),
-            ':name' => $user->getName(),
-            ':password' => $user->getPassword(),
-            ':gender' => $user->getGender(),
-            ':dob' => $user->getDob(),
-            ':ip' => $user->getIp(),
-            ':accessToken' => $user->getAccessToken(),
-            ':phone' => $user->getPhone(),
-            ':createdAt' => $user->getCreatedAt()
-        ]);
+        $statement->execute(
+            [
+                ':email' => $user->getEmail(),
+                ':name' => $user->getName(),
+                ':password' => $user->getPassword(),
+                ':gender' => $user->getGender(),
+                ':dob' => $user->getDob(),
+                ':ip' => $user->getIp(),
+                ':accessToken' => $user->getAccessToken(),
+                ':phone' => $user->getPhone(),
+                ':createdAt' => $user->getCreatedAt()
+            ]
+        );
 
         return $user->setId((int) $this->pdo->lastInsertId());
     }
@@ -110,15 +112,17 @@ SQL;
     {
         $statement = $this->pdo->prepare(static::UPDATE_USER_QUERY);
 
-        return $statement->execute([
-            ':name' => $user->getName(),
-            ':email' => $user->getEmail(),
-            ':password' => $user->getPassword(),
-            ':gender' => $user->getGender(),
-            ':dob' => $user->getDob(),
-            ':phone' => $user->getPhone(),
-            ':id' => $user->getId()
-        ]);
+        return $statement->execute(
+            [
+                ':name' => $user->getName(),
+                ':email' => $user->getEmail(),
+                ':password' => $user->getPassword(),
+                ':gender' => $user->getGender(),
+                ':dob' => $user->getDob(),
+                ':phone' => $user->getPhone(),
+                ':id' => $user->getId()
+            ]
+        );
     }
 
     public function updateAccessToken(int $id, string $token): bool
@@ -147,14 +151,17 @@ SQL;
 
         $statement->execute();
 
-        return $statement->fetchAll(PDO::FETCH_FUNC, function ($id, $name, $gender, $age) {
-            return [
-                'id' => (int) $id,
-                'name' => $name,
-                'gender' => (int) $gender,
-                'age' => (int) $age
-            ];
-        });
+        return $statement->fetchAll(
+            PDO::FETCH_FUNC,
+            function ($id, $name, $gender, $age) {
+                return [
+                    'id' => (int) $id,
+                    'name' => $name,
+                    'gender' => (int) $gender,
+                    'age' => (int) $age
+                ];
+            }
+        );
     }
 
     public function hasEmail(string $email): bool

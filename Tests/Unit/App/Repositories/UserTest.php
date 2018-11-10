@@ -31,17 +31,20 @@ class UserTest extends DatabaseTestCase
 
     public function testRepositoryCanFindUserById(): void
     {
-        $this->assertArraySubset([
-            'id' => '1',
-            'name' => 'first',
-            'password' => '123456',
-            'email' => 'first@test.ru',
-            'dob' => '2018-11-09T16:22:21+00:00',
-            'gender' => '1',
-            'phone' => null,
-            'createdAt' => '2018-11-09T16:22:21+00:00',
-            'ip' => '127.0.0.1'
-        ], $this->repository->find(1)->toArray());
+        $this->assertArraySubset(
+            [
+                'id' => '1',
+                'name' => 'first',
+                'password' => '123456',
+                'email' => 'first@test.ru',
+                'dob' => '2018-11-09T16:22:21+00:00',
+                'gender' => '1',
+                'phone' => null,
+                'createdAt' => '2018-11-09T16:22:21+00:00',
+                'ip' => '127.0.0.1'
+            ],
+            $this->repository->find(1)->toArray()
+        );
     }
 
     public function testFindThrowExceptionWhenEntityDoesNotFound(): void
@@ -54,17 +57,20 @@ class UserTest extends DatabaseTestCase
 
     public function testRepositoryCanFindUserByEmail(): void
     {
-        $this->assertArraySubset([
-            'id' => '1',
-            'name' => 'first',
-            'password' => '123456',
-            'email' => 'first@test.ru',
-            'dob' => '2018-11-09T16:22:21+00:00',
-            'gender' => '1',
-            'phone' => null,
-            'createdAt' => '2018-11-09T16:22:21+00:00',
-            'ip' => '127.0.0.1'
-        ], $this->repository->findByEmail('first@test.ru')->toArray());
+        $this->assertArraySubset(
+            [
+                'id' => '1',
+                'name' => 'first',
+                'password' => '123456',
+                'email' => 'first@test.ru',
+                'dob' => '2018-11-09T16:22:21+00:00',
+                'gender' => '1',
+                'phone' => null,
+                'createdAt' => '2018-11-09T16:22:21+00:00',
+                'ip' => '127.0.0.1'
+            ],
+            $this->repository->findByEmail('first@test.ru')->toArray()
+        );
     }
 
     public function testFindByEmailThrowExceptionWhenEntityDoesNotFound(): void
@@ -78,18 +84,21 @@ class UserTest extends DatabaseTestCase
     public function testRepositoryCanFindUserByAccessToken(): void
     {
         $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOjU1OTQ3NjU0NjQ0NTc0Nzg2NDN9.eyJlbWFpbCI6ImZpcnN0QHRlc3QucnUifQ==.nddz97FBeb96vIhg0DUaUJhCCRr9hatlQgZUKNioz2Ki01xD6aqNPf8L7enVPZmMYNemXxTx+5jo5U6uUfevwA==';
-        $this->assertSame([
-            'id' => '1',
-            'name' => 'first',
-            'password' => '123456',
-            'email' => 'first@test.ru',
-            'dob' => '2018-11-09T16:22:21+00:00',
-            'gender' => '1',
-            'phone' => null,
-            'createdAt' => '2018-11-09T16:22:21+00:00',
-            'ip' => '127.0.0.1',
-            'accessToken' => $token,
-        ], $this->repository->findByAccessToken($token)->toArray());
+        $this->assertSame(
+            [
+                'id' => '1',
+                'name' => 'first',
+                'password' => '123456',
+                'email' => 'first@test.ru',
+                'dob' => '2018-11-09T16:22:21+00:00',
+                'gender' => '1',
+                'phone' => null,
+                'createdAt' => '2018-11-09T16:22:21+00:00',
+                'ip' => '127.0.0.1',
+                'accessToken' => $token,
+            ],
+            $this->repository->findByAccessToken($token)->toArray()
+        );
     }
 
     public function testFindByAccessTokenThrowExceptionWhenEntityDoesNotFound(): void
@@ -121,15 +130,18 @@ class UserTest extends DatabaseTestCase
 
         $dbUser = $this->repository->find(15);
 
-        $this->assertArraySubset([
-            'email' => 'third@test.ru',
-            'name' => 'third',
-            'gender' => '2',
-            'dob' => $dob,
-            'accessToken' => $token,
-            'phone' => '+79106119988',
-            'ip' => '127.0.0.1',
-        ], $dbUser->toArray());
+        $this->assertArraySubset(
+            [
+                'email' => 'third@test.ru',
+                'name' => 'third',
+                'gender' => '2',
+                'dob' => $dob,
+                'accessToken' => $token,
+                'phone' => '+79106119988',
+                'ip' => '127.0.0.1',
+            ],
+            $dbUser->toArray()
+        );
     }
 
     public function testRepositoryCanUpdateUser(): void
@@ -156,13 +168,16 @@ class UserTest extends DatabaseTestCase
         $this->assertNotSame($oldUser->getDob(), $user->getDob());
         $this->assertNotSame($oldUser->getPhone(), $user->getPhone());
 
-        $this->assertArraySubset([
-            'name' => '2-second',
-            'email' => '1-second@test.ru',
-            'dob' => $dob,
-            'gender' => 0,
-            'phone' => '+79997776655'
-        ], $user->toArray());
+        $this->assertArraySubset(
+            [
+                'name' => '2-second',
+                'email' => '1-second@test.ru',
+                'dob' => $dob,
+                'gender' => 0,
+                'phone' => '+79997776655'
+            ],
+            $user->toArray()
+        );
     }
 
     public function testUpdateAccessToken(): void
@@ -188,89 +203,101 @@ class UserTest extends DatabaseTestCase
     public function testFilterByGender(): void
     {
         $this->assertCount(4, $this->repository->filter(1));
-        $this->assertSame([
+        $this->assertSame(
             [
-                'id' => 1,
-                'name' => 'first',
-                'gender' => 1,
-                'age' => 0
+                [
+                    'id' => 1,
+                    'name' => 'first',
+                    'gender' => 1,
+                    'age' => 0
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'second',
+                    'gender' => 1,
+                    'age' => 0
+                ],
+                [
+                    'id' => 11,
+                    'name' => '11-name',
+                    'gender' => 1,
+                    'age' => 2
+                ],
+                [
+                    'id' => 14,
+                    'name' => '14-name',
+                    'gender' => 1,
+                    'age' => 5
+                ]
             ],
-            [
-                'id' => 2,
-                'name' => 'second',
-                'gender' => 1,
-                'age' => 0
-            ],
-            [
-                'id' => 11,
-                'name' => '11-name',
-                'gender' => 1,
-                'age' => 2
-            ],
-            [
-                'id' => 14,
-                'name' => '14-name',
-                'gender' => 1,
-                'age' => 5
-            ]
-        ], $this->repository->filter(1));
+            $this->repository->filter(1)
+        );
     }
 
     public function testFilterByMinAge(): void
     {
         $this->assertCount(2, $this->repository->filter(null, 4));
-        $this->assertSame([
+        $this->assertSame(
             [
-                'id' => 13,
-                'name' => '13-name',
-                'gender' => 0,
-                'age' => 4
+                [
+                    'id' => 13,
+                    'name' => '13-name',
+                    'gender' => 0,
+                    'age' => 4
+                ],
+                [
+                    'id' => 14,
+                    'name' => '14-name',
+                    'gender' => 1,
+                    'age' => 5
+                ]
             ],
-            [
-                'id' => 14,
-                'name' => '14-name',
-                'gender' => 1,
-                'age' => 5
-            ]
-        ], $this->repository->filter(null, 4));
+            $this->repository->filter(null, 4)
+        );
     }
 
     public function testFilterByGenderMinAge(): void
     {
         $this->assertCount(1, $this->repository->filter(1, 4));
-        $this->assertSame([
+        $this->assertSame(
             [
-                'id' => 14,
-                'name' => '14-name',
-                'gender' => 1,
-                'age' => 5
-            ]
-        ], $this->repository->filter(1, 4));
+                [
+                    'id' => 14,
+                    'name' => '14-name',
+                    'gender' => 1,
+                    'age' => 5
+                ]
+            ],
+            $this->repository->filter(1, 4)
+        );
     }
 
     public function testFilterByMaxAge(): void
     {
         $this->assertCount(3, $this->repository->filter(null, null, 1));
-        $this->assertSame([
+        $this->assertSame(
             [
-                'id' => 1,
-                'name' => 'first',
-                'gender' => 1,
-                'age' => 0
+                [
+                    'id' => 1,
+                    'name' => 'first',
+                    'gender' => 1,
+                    'age' => 0
+                ],
+                [
+                    'id' => 2,
+                    'name' => 'second',
+                    'gender' => 1,
+                    'age' => 0
+                ],
+                [
+                    'id' => 10,
+                    'name' => '10-name',
+                    'gender' => 0,
+                    'age' => 1
+                ]
             ],
-            [
-                'id' => 2,
-                'name' => 'second',
-                'gender' => 1,
-                'age' => 0
-            ],
-            [
-                'id' => 10,
-                'name' => '10-name',
-                'gender' => 0,
-                'age' => 1
-            ]
-        ], $this->repository->filter(null, null, 1));
+            $this->repository->filter(null, null, 1)
+        );
     }
 
     public function testFilterWithoutAnyArguments()

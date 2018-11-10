@@ -36,13 +36,19 @@ abstract class BrowserTestCase extends TestCase
 
     public function createUser(string $email, string $name, string $password = '123456'): string
     {
-        $result = $this->http->request('post', 'api/user', ['form_params' => [
-            'email' => $email,
-            'name' => $name,
-            'password' => $password,
-            'dob' => (new DateTime())->format(DateTime::ATOM),
-            'gender' => '2'
-        ]]);
+        $result = $this->http->request(
+            'post',
+            'api/user',
+            [
+                'form_params' => [
+                    'email' => $email,
+                    'name' => $name,
+                    'password' => $password,
+                    'dob' => (new DateTime())->format(DateTime::ATOM),
+                    'gender' => '2'
+                ]
+            ]
+        );
 
         return \json_decode($result->getBody()->getContents(), true)['data']['access_token'];
     }

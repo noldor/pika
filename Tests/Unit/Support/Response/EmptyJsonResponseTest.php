@@ -11,14 +11,19 @@ class EmptyJsonResponseTest extends TestCase
 {
     public function testResponseFormat(): void
     {
-        $data = $this->getOutput(function () {
-            (new EmptyJsonResponse(['key' => 'value']))->send();
-        });
+        $data = $this->getOutput(
+            function () {
+                (new EmptyJsonResponse(['key' => 'value']))->send();
+            }
+        );
 
-        $this->assertSame([
-            'result' => true,
-            'message' => null,
-            'data' => null
-        ], $data);
+        $this->assertSame(
+            [
+                'result' => true,
+                'message' => null,
+                'data' => null
+            ],
+            $data
+        );
     }
 }

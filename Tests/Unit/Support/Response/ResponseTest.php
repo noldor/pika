@@ -43,14 +43,19 @@ class ResponseTest extends TestCase
 
     public function testResponseFormat(): void
     {
-        $content = $this->getOutput(function () {
-            (new JsonResponse(['key' => 'value']))->send();
-        });
+        $content = $this->getOutput(
+            function () {
+                (new JsonResponse(['key' => 'value']))->send();
+            }
+        );
 
-        $this->assertSame([
-            'result' => true,
-            'message' => null,
-            'data' => ['key' => 'value']
-        ], $content);
+        $this->assertSame(
+            [
+                'result' => true,
+                'message' => null,
+                'data' => ['key' => 'value']
+            ],
+            $content
+        );
     }
 }

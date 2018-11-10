@@ -214,11 +214,15 @@ class User
 
     public function only(string ...$fields): array
     {
-        return \array_reduce($fields, function ($array, $key) {
-            $array[$key] = $this->{$key};
+        return \array_reduce(
+            $fields,
+            function ($array, $key) {
+                $array[$key] = $this->{$key};
 
-            return $array;
-        }, []);
+                return $array;
+            },
+            []
+        );
     }
 
     public function toArray(): array

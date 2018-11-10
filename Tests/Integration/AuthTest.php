@@ -27,7 +27,9 @@ class AuthTest extends BrowserTestCase
     {
         try {
             $this->http->request(
-                'POST', 'api/auth', [
+                'POST',
+                'api/auth',
+                [
                     'form_params' => [
                         'email' => $this->email,
                         'password' => '1234567'
@@ -45,9 +47,16 @@ class AuthTest extends BrowserTestCase
 
     public function testAuthWithExistedUser(): void
     {
-        $result = $this->http->request('POST', 'api/auth', ['form_params' => [
-            'email' => $this->email, 'password' => '123456'
-        ]]);
+        $result = $this->http->request(
+            'POST',
+            'api/auth',
+            [
+                'form_params' => [
+                    'email' => $this->email,
+                    'password' => '123456'
+                ]
+            ]
+        );
 
         $this->assertSame(200, $result->getStatusCode());
         $this->assertJson($result->getBody()->getContents());
