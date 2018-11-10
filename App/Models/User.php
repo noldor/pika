@@ -58,6 +58,15 @@ class User
      */
     private $accessToken;
 
+    public function __construct()
+    {
+        if ($this->id !== null) {
+            $this->id = (int) $this->id;
+        }
+
+        $this->gender = (int) $this->gender;
+    }
+
     public static function create(
         string $email,
         string $name,
@@ -89,7 +98,7 @@ class User
 
     public function getId(): int
     {
-        return (int) $this->id;
+        return $this->id;
     }
 
     public function setId(int $id): self
@@ -154,7 +163,7 @@ class User
 
     public function getGender(): int
     {
-        return (int) $this->gender;
+        return $this->gender;
     }
 
     public function setGender(int $gender): self

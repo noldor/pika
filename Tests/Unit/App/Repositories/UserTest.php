@@ -93,12 +93,12 @@ class UserTest extends DatabaseTestCase
         $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOjU1OTQ3NjU0NjQ0NTc0Nzg2NDN9.eyJlbWFpbCI6ImZpcnN0QHRlc3QucnUifQ==.nddz97FBeb96vIhg0DUaUJhCCRr9hatlQgZUKNioz2Ki01xD6aqNPf8L7enVPZmMYNemXxTx+5jo5U6uUfevwA==';
         $this->assertSame(
             [
-                'id' => '1',
+                'id' => 1,
                 'name' => 'first',
                 'password' => '123456',
                 'email' => 'first@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
-                'gender' => '1',
+                'gender' => 1,
                 'phone' => null,
                 'createdAt' => '2018-11-09T16:22:21+00:00',
                 'ip' => '127.0.0.1',
