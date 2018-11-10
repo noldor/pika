@@ -8,6 +8,6 @@ class Unauthenticated extends ResponseException
 {
     public function __construct()
     {
-        parent::__construct('Missed access_token!', 401);
+        parent::__construct('Missing access_token!', 401);
     }
 }
