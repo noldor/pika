@@ -122,6 +122,8 @@ SQL;
     public function update(UserModel $user): bool
     {
         $statement = $this->pdo->prepare(static::UPDATE_USER_QUERY);
+        $id = $user->getId();
+        $statement->bindParam(':id', $id, PDO::PARAM_INT);
 
         return $statement->execute(
             [

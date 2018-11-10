@@ -18,7 +18,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Missing fields: [email]');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'name' => 'name',
@@ -28,7 +28,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenNameDoesNotExist(): void
@@ -36,7 +36,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Missing fields: [name]');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -46,7 +46,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenPasswordDoesNotExist(): void
@@ -54,7 +54,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Missing fields: [password]');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -64,7 +64,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenDobDoesNotExist(): void
@@ -72,7 +72,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Missing fields: [dob]');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -82,7 +82,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenGenderDoesNotExist(): void
@@ -90,7 +90,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Missing fields: [gender]');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -100,7 +100,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenEmailDoesNotValid(): void
@@ -108,7 +108,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Seem`s user email is not an email!');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test',
@@ -119,7 +119,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenUserWithGivenEmailExist(): void
@@ -129,7 +129,7 @@ class CreateTest extends DatabaseTestCase
 
         $this->createUser('test@test.ru', 'name1', JWT::encode(['mail' => 'test@test.ru']));
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -140,7 +140,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenNameDoesNotValid(): void
@@ -148,7 +148,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('User name must contain only latin or russian characters, digits and . and -');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -159,7 +159,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenUserWithGivenNameExist(): void
@@ -169,7 +169,7 @@ class CreateTest extends DatabaseTestCase
 
         $this->createUser('test1@test.ru', 'name', JWT::encode(['mail' => 'test@test.ru']));
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -180,7 +180,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenPasswordDoesNotValid(): void
@@ -190,7 +190,7 @@ class CreateTest extends DatabaseTestCase
             'User password must have length greater or equal to 6 chars and less or equal to 255 chars!'
         );
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -201,7 +201,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenDobDoesNotValid(): void
@@ -209,7 +209,7 @@ class CreateTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('Seem`s that date of birth has wrong format!');
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -220,7 +220,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenGenderDoesNotValid(): void
@@ -230,7 +230,7 @@ class CreateTest extends DatabaseTestCase
             'User gender must be one of [0, 1, 2]'
         );
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -241,7 +241,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testConstructorThrowValidationExceptionWhenPhoneDoesNotValid(): void
@@ -251,7 +251,7 @@ class CreateTest extends DatabaseTestCase
             'Seem`s that phone not in international phone number format!'
         );
 
-        (new Create(
+        new Create(
             Request::create(
                 [
                     'email' => 'test@test.ru',
@@ -263,7 +263,7 @@ class CreateTest extends DatabaseTestCase
                 ]
             ),
             $this->userRepository
-        ))->handle();
+        );
     }
 
     public function testHandleCanCreateUser(): void

@@ -51,6 +51,33 @@ class User
         }
     }
 
+    public function validateOptionalUserInput(RequestInterface $request): void
+    {
+        if ($request->has('email')) {
+            $this->isValidEmail($request->get('email'));
+        }
+
+        if ($request->has('name')) {
+            $this->isValidName($request->get('name'));
+        }
+
+        if ($request->has('password')) {
+            $this->isValidPassword($request->get('password'));
+        }
+
+        if ($request->has('gender')) {
+            $this->isValidGender((int) $request->get('gender'));
+        }
+
+        if ($request->has('dob')) {
+            $this->isValidDateOfBirth($request->get('dob'));
+        }
+
+        if ($request->has('phone')) {
+            $this->isValidPhone($request->get('phone'));
+        }
+    }
+
     private function validateUserInputContainsRequiredFields(RequestInterface $request): void
     {
         $diff = \array_diff(static::USER_INPUT_REQUIRED_FIELDS, $request->keys());

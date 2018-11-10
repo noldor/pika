@@ -14,17 +14,34 @@ class Update extends GuardedController
     public function __construct(RequestInterface $request, User $userRepository)
     {
         parent::__construct($request, $userRepository);
-        $this->validator->validateUserInput($request);
+        $this->validator->validateOptionalUserInput($request);
     }
 
     public function handle(): ResponseInterface
     {
-        $this->user->setEmail($this->request->get('email'));
-        $this->user->setName($this->request->get('name'));
-        $this->user->setPassword($this->request->get('password'));
-        $this->user->setDob($this->request->get('dob'));
-        $this->user->setGender($this->request->get('gender'));
-        $this->user->setPhone($this->request->get('phone'));
+        if ($this->request->has('email')) {
+            $this->user->setEmail($this->request->get('email'));
+        }
+
+        if ($this->request->has('name')) {
+            $this->user->setName($this->request->get('name'));
+        }
+
+        if ($this->request->has('password')) {
+            $this->user->setPassword($this->request->get('password'));
+        }
+
+        if ($this->request->has('dob')) {
+            $this->user->setDob($this->request->get('dob'));
+        }
+
+        if ($this->request->has('gender')) {
+            $this->user->setGender($this->request->get('gender'));
+        }
+
+        if ($this->request->has('phone')) {
+            $this->user->setPhone($this->request->get('phone'));
+        }
 
         $this->userRepository->update($this->user);
 
