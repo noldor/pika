@@ -58,8 +58,8 @@ class AuthTest extends DatabaseTestCase
         $token = JWT::encode(['email' => 'test@test.ru']);
         $this->createUser('test@test.ru', 'name', $token, '123456');
 
-        (new Auth(Request::create(['email' => 'test@test.ru', 'password' => '123456']), $this->userRepository))->handle(
-        );
+        (new Auth(Request::create(['email' => 'test@test.ru', 'password' => '123456']), $this->userRepository))
+            ->handle();
 
         $user = $this->userRepository->findByEmail('test@test.ru');
 
