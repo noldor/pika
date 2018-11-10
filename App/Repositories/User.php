@@ -16,6 +16,8 @@ class User
 
     private const FIND_BY_EMAIL_QUERY = 'SELECT * from users WHERE email = :email';
 
+    private const FIND_BY_ACCESS_TOKEN_QUERY = 'SELECT * from users WHERE accessToken = :accessToken';
+
     private const CREATE_USER_QUERY = <<<SQL
         INSERT INTO users
         (email, name, password, gender, ip, accessToken, phone, dob, createdAt)
@@ -91,9 +93,17 @@ SQL;
 
     public function findByAccessToken(string $token): UserModel
     {
-        $payload = JWT::decode($token);
+        $statement = $this->pdo->prepare(static::FIND_BY_ACCESS_TOKEN_QUERY);
+        $statement->bindParam(':accessToken', $token, PDO::PARAM_STR);
+        $statement->execute();
 
-        return $this->findByEmail($payload['email']);
+        $user = $statement->fetchObject(UserModel::class);
+
+        if ($user === false) {
+            throw new EntityNotFoundException('Can not find user with given token!');
+        }
+
+        return $user;
     }
 
     public function create(UserModel $user): UserModel

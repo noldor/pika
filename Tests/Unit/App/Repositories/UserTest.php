@@ -28,12 +28,12 @@ class UserTest extends DatabaseTestCase
     {
         $this->assertArraySubset(
             [
-                'id' => '1',
-                'name' => 'first',
+                'id' => 1,
+                'name' => '1-name',
                 'password' => '123456',
-                'email' => 'first@test.ru',
+                'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
-                'gender' => '1',
+                'gender' => 1,
                 'phone' => null,
                 'createdAt' => '2018-11-09T16:22:21+00:00',
                 'ip' => '127.0.0.1'
@@ -54,17 +54,17 @@ class UserTest extends DatabaseTestCase
     {
         $this->assertArraySubset(
             [
-                'id' => '1',
-                'name' => 'first',
+                'id' => 1,
+                'name' => '1-name',
                 'password' => '123456',
-                'email' => 'first@test.ru',
+                'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
-                'gender' => '1',
+                'gender' => 1,
                 'phone' => null,
                 'createdAt' => '2018-11-09T16:22:21+00:00',
                 'ip' => '127.0.0.1'
             ],
-            $this->repository->findByEmail('first@test.ru')->toArray()
+            $this->repository->findByEmail('1-mail@test.ru')->toArray()
         );
     }
 
@@ -90,13 +90,13 @@ class UserTest extends DatabaseTestCase
 
     public function testRepositoryCanFindUserByAccessToken(): void
     {
-        $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOjU1OTQ3NjU0NjQ0NTc0Nzg2NDN9.eyJlbWFpbCI6ImZpcnN0QHRlc3QucnUifQ==.nddz97FBeb96vIhg0DUaUJhCCRr9hatlQgZUKNioz2Ki01xD6aqNPf8L7enVPZmMYNemXxTx+5jo5U6uUfevwA==';
+        $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOi0yMjQ0NDc5NjUwNzkzNDQ1NDgxfQ==.eyJlbWFpbCI6IjEtbWFpbEB0ZXN0LnJ1In0=.YrYjvuFdLdgI2WXTN+Plu7MN/bZUTOQbLI3FqR4pnHpgBTEchFdXUHYsuJeyIg+HKPjJuAqyT6ZDqNb/dChf0w==';
         $this->assertSame(
             [
                 'id' => 1,
-                'name' => 'first',
+                'name' => '1-name',
                 'password' => '123456',
-                'email' => 'first@test.ru',
+                'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
                 'gender' => 1,
                 'phone' => null,
@@ -111,7 +111,7 @@ class UserTest extends DatabaseTestCase
     public function testFindByAccessTokenThrowExceptionWhenEntityDoesNotFound(): void
     {
         $this->expectException(EntityNotFoundException::class);
-        $this->expectExceptionMessage('Can not find user with email: some@test.ru');
+        $this->expectExceptionMessage('Can not find user with given token!');
 
         $token = JWT::encode(['email' => 'some@test.ru']);
 
@@ -135,13 +135,13 @@ class UserTest extends DatabaseTestCase
 
         $this->repository->create($user);
 
-        $dbUser = $this->repository->find(15);
+        $dbUser = $this->repository->find(8);
 
         $this->assertArraySubset(
             [
                 'email' => 'third@test.ru',
                 'name' => 'third',
-                'gender' => '2',
+                'gender' => 2,
                 'dob' => $dob,
                 'accessToken' => $token,
                 'phone' => '+79106119988',
@@ -209,30 +209,29 @@ class UserTest extends DatabaseTestCase
 
     public function testFilterByGender(): void
     {
-        $this->assertCount(4, $this->repository->filter(1));
         $this->assertSame(
             [
                 [
                     'id' => 1,
-                    'name' => 'first',
+                    'name' => '1-name',
                     'gender' => 1,
                     'age' => 0
                 ],
                 [
                     'id' => 2,
-                    'name' => 'second',
+                    'name' => '2-name',
                     'gender' => 1,
                     'age' => 0
                 ],
                 [
-                    'id' => 11,
-                    'name' => '11-name',
+                    'id' => 4,
+                    'name' => '4-name',
                     'gender' => 1,
                     'age' => 2
                 ],
                 [
-                    'id' => 14,
-                    'name' => '14-name',
+                    'id' => 7,
+                    'name' => '7-name',
                     'gender' => 1,
                     'age' => 5
                 ]
@@ -247,14 +246,14 @@ class UserTest extends DatabaseTestCase
         $this->assertSame(
             [
                 [
-                    'id' => 13,
-                    'name' => '13-name',
+                    'id' => 6,
+                    'name' => '6-name',
                     'gender' => 0,
                     'age' => 4
                 ],
                 [
-                    'id' => 14,
-                    'name' => '14-name',
+                    'id' => 7,
+                    'name' => '7-name',
                     'gender' => 1,
                     'age' => 5
                 ]
@@ -269,8 +268,8 @@ class UserTest extends DatabaseTestCase
         $this->assertSame(
             [
                 [
-                    'id' => 14,
-                    'name' => '14-name',
+                    'id' => 7,
+                    'name' => '7-name',
                     'gender' => 1,
                     'age' => 5
                 ]
@@ -286,19 +285,19 @@ class UserTest extends DatabaseTestCase
             [
                 [
                     'id' => 1,
-                    'name' => 'first',
+                    'name' => '1-name',
                     'gender' => 1,
                     'age' => 0
                 ],
                 [
                     'id' => 2,
-                    'name' => 'second',
+                    'name' => '2-name',
                     'gender' => 1,
                     'age' => 0
                 ],
                 [
-                    'id' => 10,
-                    'name' => '10-name',
+                    'id' => 3,
+                    'name' => '3-name',
                     'gender' => 0,
                     'age' => 1
                 ]
@@ -307,7 +306,7 @@ class UserTest extends DatabaseTestCase
         );
     }
 
-    public function testFilterWithoutAnyArguments()
+    public function testFilterWithoutAnyArguments(): void
     {
         $this->assertCount(7, $this->repository->filter());
     }

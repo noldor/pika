@@ -32,7 +32,7 @@ class DeleteTest extends BrowserTestCase
         } catch (ClientException $exception) {
             $this->assertSame(404, $exception->getResponse()->getStatusCode());
             $this->assertSame(
-                '{"result":false,"message":"Can not find user with email: undefined@test.ru","data":null}',
+                '{"result":false,"message":"Can not find user with given token!","data":null}',
                 $exception->getResponse()->getBody()->getContents()
             );
         }

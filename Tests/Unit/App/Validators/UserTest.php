@@ -47,7 +47,7 @@ class UserTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('User with this email already exists!');
 
-        $this->validator->isValidEmail('first@test.ru');
+        $this->validator->isValidEmail('1-mail@test.ru');
     }
 
     public function testIsValidEmailReturnTrueOnValidEmail(): void
@@ -80,7 +80,7 @@ class UserTest extends DatabaseTestCase
         $this->expectException(ValidationException::class);
         $this->expectExceptionMessage('User with this name already exists!');
 
-        $this->validator->isValidName('first');
+        $this->validator->isValidName('1-name');
     }
 
     public function testIsValidEmailReturnTrueOnValidName(): void
