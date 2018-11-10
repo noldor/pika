@@ -190,13 +190,6 @@ class User
         return $this->createdAt;
     }
 
-    public function setCreatedAt(string $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getIp(): string
     {
         return $this->ip;
