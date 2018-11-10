@@ -20,7 +20,7 @@ class Create extends Controller
 
     public function handle(): ResponseInterface
     {
-        $accessToken = JWT::encode(['email' => $this->request->get('email')], \APP_SECRET_KEY);
+        $accessToken = JWT::encode(['email' => $this->request->get('email')]);
 
         $user = \App\Models\User::create(
             $this->request->get('email'),

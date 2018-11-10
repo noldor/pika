@@ -12,7 +12,7 @@ class JWT
 
     private const ALGORITHM = 'sha512';
 
-    public static function encode(array $payload, string $key): string
+    public static function encode(array $payload, string $key = null): string
     {
         $parts = [];
 
@@ -27,7 +27,7 @@ class JWT
         return \implode('.', $parts);
     }
 
-    public static function decode(string $data, string $key): array
+    public static function decode(string $data, string $key = null): array
     {
         $parts = \explode('.', $data);
 
@@ -68,14 +68,14 @@ class JWT
         return $payload;
     }
 
-    private static function sign($input, $key): string
+    private static function sign($input, string $key = null): string
     {
-        return \hash_hmac(static::ALGORITHM, $input, $key, true);
+        return \hash_hmac(static::ALGORITHM, $input, $key ?? \APP_SECRET_KEY, true);
     }
 
-    private static function verify($data, $signature, $key): bool
+    private static function verify($data, $signature, string $key = null): bool
     {
-        $hash = \hash_hmac(static::ALGORITHM, $data, $key, true);
+        $hash = \hash_hmac(static::ALGORITHM, $data, $key ?? \APP_SECRET_KEY, true);
 
         return \hash_equals($hash, $signature);
     }

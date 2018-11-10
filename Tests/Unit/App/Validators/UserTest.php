@@ -7,7 +7,6 @@ namespace Tests\Unit\App\Validators;
 use App\Repositories\User as UserRepository;
 use App\Validators\User;
 use DateTime;
-use PHPUnit\DbUnit\DataSet\YamlDataSet;
 use Support\Exceptions\ValidationException;
 use Tests\DatabaseTestCase;
 
@@ -22,11 +21,6 @@ class UserTest extends DatabaseTestCase
     {
         parent::setUp();
         $this->validator = new User(new UserRepository(static::$pdo));
-    }
-
-    protected function getDataSet(): YamlDataSet
-    {
-        return new YamlDataSet(stubPath('db_stub.yml'));
     }
 
     public function wrongEmailDataProvider(): array

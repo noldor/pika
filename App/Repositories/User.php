@@ -80,7 +80,7 @@ SQL;
 
     public function findByAccessToken(string $token): UserModel
     {
-        $payload = JWT::decode($token, \APP_SECRET_KEY);
+        $payload = JWT::decode($token);
 
         return $this->findByEmail($payload['email']);
     }

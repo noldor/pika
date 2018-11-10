@@ -4,8 +4,11 @@ declare(strict_types=1);
 
 namespace Tests;
 
+use App\Models\User;
+use DateTime;
 use PDO;
 use PHPUnit\DbUnit\Database\DefaultConnection;
+use PHPUnit\DbUnit\DataSet\YamlDataSet;
 use PHPUnit\DbUnit\TestCaseTrait;
 
 abstract class DatabaseTestCase extends TestCase
@@ -29,7 +32,37 @@ abstract class DatabaseTestCase extends TestCase
         return $this->connection;
     }
 
-    protected function getDatabaseDefinitionSql()
+    protected function getDataSet(): YamlDataSet
+    {
+        return new YamlDataSet(stubPath('/db_stub.yml'));
+    }
+
+    protected function createUser(
+        string $email,
+        string $name,
+        string $accessToken,
+        string $password = '123456',
+        int $gender = 1,
+        string $dob = null,
+        string $phone = null
+    ): User {
+        $user = User::create(
+            $email,
+            $name,
+            $password,
+            $gender,
+            $dob ?? (new DateTime())->format(DateTime::ATOM),
+            '127.0.0.1',
+            $accessToken,
+            $phone
+        );
+
+        (new \App\Repositories\User(static::$pdo))->create($user);
+
+        return $user;
+    }
+
+    private function getDatabaseDefinitionSql(): string
     {
         return <<<SQL
             create table users

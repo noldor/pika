@@ -20,10 +20,9 @@ class JWTTest extends TestCase
 
     public function testThatEncodeCreateDifferentTokenOnSamePayload(): void
     {
-        $key = 'some key';
         $payload = ['email' => 'test@test.ru'];
-        $token1 = JWT::encode($payload, $key);
-        $token2 = JWT::encode($payload, $key);
+        $token1 = JWT::encode($payload);
+        $token2 = JWT::encode($payload);
 
         $this->assertNotSame($token1, $token2);
     }

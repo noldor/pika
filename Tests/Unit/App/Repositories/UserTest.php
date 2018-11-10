@@ -24,11 +24,6 @@ class UserTest extends DatabaseTestCase
         $this->repository = new User(static::$pdo);
     }
 
-    protected function getDataSet(): YamlDataSet
-    {
-        return new YamlDataSet(stubPath('/db_stub.yml'));
-    }
-
     public function testRepositoryCanFindUserById(): void
     {
         $this->assertArraySubset(
@@ -106,7 +101,7 @@ class UserTest extends DatabaseTestCase
         $this->expectException(EntityNotFoundException::class);
         $this->expectExceptionMessage('Can not find user with email: some@test.ru');
 
-        $token = JWT::encode(['email' => 'some@test.ru'], \APP_SECRET_KEY);
+        $token = JWT::encode(['email' => 'some@test.ru']);
 
         $this->repository->findByAccessToken($token);
     }
@@ -114,7 +109,7 @@ class UserTest extends DatabaseTestCase
     public function testRepositoryCanSaveNewUser(): void
     {
         $dob = (new DateTime())->format(DateTime::ATOM);
-        $token = JWT::encode(['email' => 'third@test.ru'], \APP_SECRET_KEY);
+        $token = JWT::encode(['email' => 'third@test.ru']);
         $user = \App\Models\User::create(
             'third@test.ru',
             'third',

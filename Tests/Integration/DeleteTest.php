@@ -25,7 +25,7 @@ class DeleteTest extends BrowserTestCase
                 'api/user',
                 [
                     'query' => [
-                        'access_token' => JWT::encode(['email' => 'undefined@test.ru'], \APP_SECRET_KEY)
+                        'access_token' => JWT::encode(['email' => 'undefined@test.ru'])
                     ]
                 ]
             );
