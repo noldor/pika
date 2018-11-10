@@ -2,16 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Controllers;
+namespace Tests\Integration;
 
 use DateTime;
 use GuzzleHttp\Exception\ClientException;
-use PHPUnit\DbUnit\DataSet\YamlDataSet;
 use Tests\BrowserTestCase;
 
 class CreateTest extends BrowserTestCase
 {
-    public function testCreateUserWithoutAllNecesarryFields(): void
+    public function testCreateUserWithoutAllNecessaryFields(): void
     {
         try {
             $this->http->request('post', 'api/user', ['form_params' => [

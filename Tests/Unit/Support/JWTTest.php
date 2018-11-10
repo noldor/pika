@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support;
+namespace Tests\Unit\Support;
 
 use Support\JWT;
 use Tests\TestCase;

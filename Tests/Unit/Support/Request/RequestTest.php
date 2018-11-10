@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support\Request;
+namespace Tests\Unit\Support\Request;
 
 use Support\Request\Request;
 use Tests\TestCase;

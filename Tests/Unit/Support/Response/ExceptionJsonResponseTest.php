@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support\Response;
+namespace Tests\Unit\Support\Response;
 
 use Support\Response\ExceptionJsonResponse;
 use Tests\TestCase;

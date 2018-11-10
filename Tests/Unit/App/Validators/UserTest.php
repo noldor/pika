@@ -2,18 +2,14 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Validators;
+namespace Tests\Unit\App\Validators;
 
 use App\Repositories\User as UserRepository;
 use App\Validators\User;
 use DateTime;
-use PDO;
-use PHPUnit\DbUnit\Database\DefaultConnection;
 use PHPUnit\DbUnit\DataSet\YamlDataSet;
-use PHPUnit\DbUnit\TestCaseTrait;
 use Support\Exceptions\ValidationException;
 use Tests\DatabaseTestCase;
-use Tests\TestCase;
 
 class UserTest extends DatabaseTestCase
 {
@@ -30,7 +26,7 @@ class UserTest extends DatabaseTestCase
 
     protected function getDataSet(): YamlDataSet
     {
-        return new YamlDataSet(__DIR__ . '/dataset.yml');
+        return new YamlDataSet(stubPath('db_stub.yml'));
     }
 
     public function wrongEmailDataProvider(): array

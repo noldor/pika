@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\Support\Routing;
+namespace Tests\Unit\Support\Routing;
 
 use ArrayObject;
 use RuntimeException;
@@ -24,7 +24,7 @@ class RouterTest extends TestCase
 
     public function testThatRouterCanLoadRoutesFromFile(): void
     {
-        $this->router->loadRoutes(__DIR__ . '/routes_stub.php');
+        $this->router->loadRoutes(\stubPath('routes_stub.php'));
 
         $this->assertSame(
             [
@@ -39,7 +39,7 @@ class RouterTest extends TestCase
 
     public function testLoadRoutesReturnSelf(): void
     {
-        $this->assertSame($this->router, $this->router->loadRoutes(__DIR__ . '/routes_stub.php'));
+        $this->assertSame($this->router, $this->router->loadRoutes(\stubPath('routes_stub.php')));
     }
 
     public function testRouterCanAddGetRoute(): void

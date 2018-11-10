@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Controllers;
+namespace Tests\Integration;
 
 use GuzzleHttp\Exception\ClientException;
 use Tests\BrowserTestCase;
@@ -28,11 +28,11 @@ class AuthTest extends BrowserTestCase
         try {
             $this->http->request(
                 'POST', 'api/auth', [
-                'form_params' => [
-                    'email' => $this->email,
-                    'password' => '1234567'
+                    'form_params' => [
+                        'email' => $this->email,
+                        'password' => '1234567'
+                    ]
                 ]
-            ]
             );
         } catch (ClientException $exception) {
             $this->assertSame(401, $exception->getCode());

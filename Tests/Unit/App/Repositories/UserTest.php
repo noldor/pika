@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Tests\App\Repositories;
+namespace Tests\Unit\App\Repositories;
 
 use App\Repositories\User;
 use DateTime;
@@ -26,7 +26,7 @@ class UserTest extends DatabaseTestCase
 
     protected function getDataSet(): YamlDataSet
     {
-        return new YamlDataSet(__DIR__ . '/dataset.yml');
+        return new YamlDataSet(stubPath('/db_stub.yml'));
     }
 
     public function testRepositoryCanFindUserById(): void
