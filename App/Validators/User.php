@@ -76,7 +76,7 @@ class User
     public function isValidName(string $name): bool
     {
         if (\preg_match('/^[-.a-zа-яё0-9]+$/', $name) !== 1) {
-            throw new ValidationException('User name must contain only latin or russian characters, digits and . or -');
+            throw new ValidationException('User name must contain only latin or russian characters, digits and . and -');
         }
 
         if ($this->userRepository->hasName($name)) {
@@ -102,7 +102,7 @@ class User
     public function isValidPhone(string $phone): bool
     {
         if (\preg_match('/^\+[0-9]{7,16}$/', $phone) !== 1) {
-            throw new ValidationException('It seem`s that phone not in international phone number format!');
+            throw new ValidationException('Seem`s that phone not in international phone number format!');
         }
 
         return true;

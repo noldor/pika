@@ -70,7 +70,7 @@ class UserTest extends DatabaseTestCase
     public function testIsValidNameThrowExceptionOnNotValidName(string $name): void
     {
         $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('User name must contain only latin or russian characters, digits and . or -');
+        $this->expectExceptionMessage('User name must contain only latin or russian characters, digits and . and -');
 
         $this->validator->isValidName($name);
     }
@@ -157,7 +157,7 @@ class UserTest extends DatabaseTestCase
     public function testIsValidPhoneThrowExceptionOnWrongPhone(string $phone): void
     {
         $this->expectException(ValidationException::class);
-        $this->expectExceptionMessage('It seem`s that phone not in international phone number format!');
+        $this->expectExceptionMessage('Seem`s that phone not in international phone number format!');
 
         $this->validator->isValidPhone($phone);
     }

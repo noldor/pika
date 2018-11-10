@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers\User;
 
+use App\Models\User as UserModel;
 use App\Repositories\User;
 use Support\JWT;
 use Support\Request\RequestInterface;
@@ -22,7 +23,7 @@ class Create extends Controller
     {
         $accessToken = JWT::encode(['email' => $this->request->get('email')]);
 
-        $user = \App\Models\User::create(
+        $user = UserModel::create(
             $this->request->get('email'),
             $this->request->get('name'),
             $this->request->get('password'),
