@@ -8,8 +8,8 @@ class ExceptionJsonResponse extends JsonResponse
 {
     protected const RESULT = false;
 
-    public function __construct(int $status = 500, string $message = '', array $headers = [])
+    public function __construct(int $code = 500, string $message = null)
     {
-        parent::__construct(null, $status, $message, $headers);
+        parent::__construct(null, $code, $message);
     }
 }

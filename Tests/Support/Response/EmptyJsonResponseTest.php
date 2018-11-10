@@ -11,8 +11,14 @@ class EmptyJsonResponseTest extends TestCase
 {
     public function testResponseFormat(): void
     {
-        $this->expectOutputString('{"result":true,"message":"","data":null}');
+        $data = $this->getOutput(function () {
+            (new EmptyJsonResponse(['key' => 'value']))->send();
+        });
 
-        (new EmptyJsonResponse(['key' => 'value']))->send();
+        $this->assertSame([
+            'result' => true,
+            'message' => null,
+            'data' => null
+        ], $data);
     }
 }

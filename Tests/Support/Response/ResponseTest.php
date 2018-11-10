@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Tests\Support\Response;
 
 use Support\Exceptions\JsonException;
-use Support\Exceptions\UnknownResponseStatusException;
+use Support\Exceptions\UnknownResponseCodeException;
 use Support\Response\JsonResponse;
 use Tests\TestCase;
 
@@ -13,7 +13,7 @@ class ResponseTest extends TestCase
 {
     public function testThatConstructThrowExceptionOnUnknownStatus(): void
     {
-        $this->expectException(UnknownResponseStatusException::class);
+        $this->expectException(UnknownResponseCodeException::class);
         $this->expectExceptionMessage('Invalid response code: 600');
 
         new JsonResponse(null, 600);
@@ -27,10 +27,30 @@ class ResponseTest extends TestCase
         (new JsonResponse([\INF]))->send();
     }
 
+    public function testGetStatus(): void
+    {
+        $response = new JsonResponse(null, 205);
+
+        $this->assertSame(205, $response->getCode());
+    }
+
+    public function testGetData(): void
+    {
+        $response = new JsonResponse(['key' => 'value', 1, 2], 307);
+
+        $this->assertSame(['key' => 'value', 1, 2], $response->getData());
+    }
+
     public function testResponseFormat(): void
     {
-        $this->expectOutputString('{"result":true,"message":"","data":{"key":"value"}}');
+        $content = $this->getOutput(function () {
+            (new JsonResponse(['key' => 'value']))->send();
+        });
 
-        (new JsonResponse(['key' => 'value']))->send();
+        $this->assertSame([
+            'result' => true,
+            'message' => null,
+            'data' => ['key' => 'value']
+        ], $content);
     }
 }

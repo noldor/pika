@@ -39,6 +39,6 @@ class DeleteTest extends BrowserTestCase
         ]]);
 
         $this->assertSame(200, $result->getStatusCode());
-        $this->assertSame('{"result":true,"message":"","data":null}', $result->getBody()->getContents());
+        $this->assertSame('{"result":true,"message":null,"data":null}', $result->getBody()->getContents());
     }
 }

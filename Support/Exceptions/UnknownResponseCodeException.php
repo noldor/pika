@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Exceptions;
 
-class UnknownResponseStatusException extends ResponseException
+class UnknownResponseCodeException extends ResponseException
 {
     public function __construct(string $message)
     {
