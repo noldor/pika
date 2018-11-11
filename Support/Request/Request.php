@@ -16,9 +16,9 @@ class Request implements RequestInterface
         $this->request = $request;
     }
 
-    public static function create(array $data = null): RequestInterface
+    public static function create(array $data): RequestInterface
     {
-        return new static($data ?? static::getRequest());
+        return new static($data);
     }
 
     public function has(string $name): bool
@@ -43,19 +43,5 @@ class Request implements RequestInterface
     public function keys(): array
     {
         return \array_keys($this->request);
-    }
-
-    /**
-     * @codeCoverageIgnore
-     */
-    private static function getRequest(): array
-    {
-        if ($_SERVER['REQUEST_METHOD'] === 'PUT') {
-            \parse_str(file_get_contents('php://input'), $args);
-
-            return \array_merge($_REQUEST, $args);
-        }
-
-        return $_REQUEST;
     }
 }

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Exceptions;
 
-class JsonException extends ResponseException
+class JsonException extends ResponsableException
 {
     public function __construct(string $message)
     {

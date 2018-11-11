@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Exceptions;
 
-class EntityNotFoundException extends ResponseException
+class EntityNotFoundException extends ResponsableException
 {
     public function __construct(string $message)
     {

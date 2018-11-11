@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Support\Exceptions;
 
-class UnknownRouteException extends ResponseException
+class UnknownRouteException extends ResponsableException
 {
     public function __construct(string $message)
     {

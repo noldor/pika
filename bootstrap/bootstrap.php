@@ -2,11 +2,7 @@
 
 declare(strict_types=1);
 
-use App\Repositories\User;
-use Support\Exceptions\ResponseException;
-use Support\Request\Request;
-use Support\Response\ExceptionJsonResponse;
-use Support\Routing\Router;
+use App\Kernel;
 
 require __DIR__ . '/config.php';
 require __DIR__ . '/functions.php';
@@ -27,22 +23,4 @@ set_error_handler(
     }
 );
 
-try {
-    $pdo = new PDO(PDO_DSN, null, null, PDO_OPTIONS);
-
-    $userRepository = new User($pdo);
-
-    $request = Request::create();
-
-    $router = (new Router())->loadRoutes(__DIR__ . '/routes.php');
-
-    $handler = $router->getHandler($_SERVER['REQUEST_METHOD'], strtok($_SERVER['REQUEST_URI'], '?'));
-
-    call_user_func([new $handler($request, $userRepository), 'handle'], $request, $userRepository)->send();
-} catch (PDOException $exception) {
-    (new ExceptionJsonResponse(500, 'PDO exception'))->send();
-} catch (ResponseException $exception) {
-    (new ExceptionJsonResponse($exception->getCode(), $exception->getMessage()))->send();
-} catch (Throwable $exception) {
-    (new ExceptionJsonResponse(500, $exception->getMessage()))->send();
-}
+(new Kernel())->handle();

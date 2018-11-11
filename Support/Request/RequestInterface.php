@@ -6,7 +6,7 @@ namespace Support\Request;
 
 interface RequestInterface
 {
-    public static function create(array $data = null): self;
+    public static function create(array $data): self;
 
     public function has(string $name): bool;
 

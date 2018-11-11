@@ -6,6 +6,6 @@ namespace Support\Exceptions;
 
 use RuntimeException;
 
-class ResponseException extends RuntimeException
+class ResponsableException extends RuntimeException
 {
 }

@@ -18,6 +18,10 @@ if (! defined('APP_SECRET_KEY')) {
     define('APP_SECRET_KEY', 'noldor');
 }
 
+if (! defined('ROUTES_PATH')) {
+    define('ROUTES_PATH', __DIR__ . '/routes.php');
+}
+
 if (! defined('PDO_OPTIONS')) {
     define(
         'PDO_OPTIONS',
