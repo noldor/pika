@@ -45,6 +45,9 @@ class Request implements RequestInterface
         return \array_keys($this->request);
     }
 
+    /**
+     * @codeCoverageIgnore
+     */
     private static function getRequest(): array
     {
         if ($_SERVER['REQUEST_METHOD'] === 'PUT') {

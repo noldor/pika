@@ -51,14 +51,14 @@ class User
         }
     }
 
-    public function validateOptionalUserInput(RequestInterface $request): void
+    public function validateOptionalUserInput(RequestInterface $request, int $currentUserId = 0): void
     {
         if ($request->has('email')) {
-            $this->isValidEmail($request->get('email'));
+            $this->isValidEmail($request->get('email'), $currentUserId);
         }
 
         if ($request->has('name')) {
-            $this->isValidName($request->get('name'));
+            $this->isValidName($request->get('name'), $currentUserId);
         }
 
         if ($request->has('password')) {

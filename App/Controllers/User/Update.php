@@ -14,7 +14,7 @@ class Update extends GuardedController
     public function __construct(RequestInterface $request, User $userRepository)
     {
         parent::__construct($request, $userRepository);
-        $this->validator->validateOptionalUserInput($request);
+        $this->validator->validateOptionalUserInput($request, $this->user->getId());
     }
 
     public function handle(): ResponseInterface

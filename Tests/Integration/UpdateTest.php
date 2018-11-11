@@ -38,12 +38,6 @@ class UpdateTest extends BrowserTestCase
         );
     }
 
-    /**
-     * @covers \Support\Response\JsonResponse::send
-     * @covers \Support\Response\JsonResponse::sendHeaders
-     * @covers \Support\Response\JsonResponse::setResponseCode
-     * @covers ::sendHeader()
-     */
     public function testUpdateUser(): void
     {
         $response = $this->put(
