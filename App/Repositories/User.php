@@ -35,9 +35,9 @@ SQL;
 
     private const FILTER_QUERY = "SELECT id, name, gender, round((julianday('now') - julianday(dob))/365,1) as age FROM users";
 
-    private const COUNT_EMAIL_QUERY = 'SELECT count(id) as count FROM users WHERE email = :email';
+    private const HAS_EMAIL_QUERY = 'SELECT id as count FROM users WHERE email = :email AND id != :id';
 
-    private const COUNT_NAME_QUERY = 'SELECT count(id) as count FROM users WHERE name = :name';
+    private const HAS_NAME_QUERY = 'SELECT id as count FROM users WHERE name = :name AND id != :id';
 
     /**
      * @var \PDO
@@ -186,10 +186,11 @@ SQL;
         );
     }
 
-    public function hasEmail(string $email): bool
+    public function hasEmail(string $email, int $currentUserId = 0): bool
     {
-        $statement = $this->pdo->prepare(static::COUNT_EMAIL_QUERY);
+        $statement = $this->pdo->prepare(static::HAS_EMAIL_QUERY);
         $statement->bindParam(':email', $email, PDO::PARAM_STR);
+        $statement->bindParam(':id', $currentUserId, PDO::PARAM_INT);
 
         $statement->execute();
         $count = $statement->fetchColumn(0);
@@ -197,10 +198,11 @@ SQL;
         return (int) $count > 0;
     }
 
-    public function hasName(string $name): bool
+    public function hasName(string $name, int $currentUserId = 0): bool
     {
-        $statement = $this->pdo->prepare(static::COUNT_NAME_QUERY);
+        $statement = $this->pdo->prepare(static::HAS_NAME_QUERY);
         $statement->bindParam(':name', $name, PDO::PARAM_STR);
+        $statement->bindParam(':id', $currentUserId, PDO::PARAM_INT);
 
         $statement->execute();
         $count = $statement->fetchColumn(0);

@@ -87,20 +87,20 @@ class User
         }
     }
 
-    public function isValidEmail(string $email): bool
+    public function isValidEmail(string $email, int $currentUserId = 0): bool
     {
         if (\filter_var($email, \FILTER_VALIDATE_EMAIL) === false) {
             throw new ValidationException('Seem`s user email is not an email!');
         }
 
-        if ($this->userRepository->hasEmail($email)) {
+        if ($this->userRepository->hasEmail($email, $currentUserId)) {
             throw new ValidationException('User with this email already exists!');
         }
 
         return true;
     }
 
-    public function isValidName(string $name): bool
+    public function isValidName(string $name, int $currentUserId = 0): bool
     {
         if (\preg_match('/^[-.a-zа-яё0-9]+$/', $name) !== 1) {
             throw new ValidationException(
@@ -108,7 +108,7 @@ class User
             );
         }
 
-        if ($this->userRepository->hasName($name)) {
+        if ($this->userRepository->hasName($name, $currentUserId)) {
             throw new ValidationException('User with this name already exists!');
         }
 
