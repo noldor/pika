@@ -7,7 +7,6 @@ namespace App\Repositories;
 use App\Models\User as UserModel;
 use PDO;
 use PDOStatement;
-use RuntimeException;
 use Support\Exceptions\EntityNotFoundException;
 use Support\JWT;
 
