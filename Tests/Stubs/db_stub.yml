@@ -2,7 +2,7 @@ users:
   - id: 1
     email: 1-mail@test.ru
     name: 1-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 1
     dob: "2018-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -11,7 +11,7 @@ users:
   - id: 2
     email: 2-mail@test.ru
     name: 2-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 1
     dob: "2018-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -20,7 +20,7 @@ users:
   - id: 3
     email: 3-mail@test.ru
     name: 3-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 0
     dob: "2017-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -29,7 +29,7 @@ users:
   - id: 4
     email: 4-mail@test.ru
     name: 4-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 1
     dob: "2016-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -38,7 +38,7 @@ users:
   - id: 5
     email: 5-mail@test.ru
     name: 5-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 2
     dob: "2015-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -47,7 +47,7 @@ users:
   - id: 6
     email: 6-mail@test.ru
     name: 6-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 0
     dob: "2014-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
@@ -56,7 +56,7 @@ users:
   - id: 7
     email: 7-mail@test.ru
     name: 7-name
-    password: 123456
+    password: $2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW
     gender: 1
     dob: "2013-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"

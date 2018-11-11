@@ -29,7 +29,7 @@ class UserTest extends DatabaseTestCase
             [
                 'id' => 1,
                 'name' => '1-name',
-                'password' => '123456',
+                'password' => '$2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW',
                 'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
                 'gender' => 1,
@@ -55,7 +55,7 @@ class UserTest extends DatabaseTestCase
             [
                 'id' => 1,
                 'name' => '1-name',
-                'password' => '123456',
+                'password' => '$2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW',
                 'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
                 'gender' => 1,
@@ -95,7 +95,7 @@ class UserTest extends DatabaseTestCase
             [
                 'id' => 1,
                 'name' => '1-name',
-                'password' => '123456',
+                'password' => '$2y$10$38a8vYOhbfrS343o1GG1kuC1Ax3.b41AgNw2B1etUNnoLDkgVkkBW',
                 'email' => '1-mail@test.ru',
                 'dob' => '2018-11-09T16:22:21+00:00',
                 'gender' => 1,
