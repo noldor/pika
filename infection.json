@@ -11,7 +11,7 @@
     "directories": [
       "App", "Support"
     ],
-    "excludes": ["vendor", "Tests"]
+    "excludes": ["vendor", "Tests", "Kernel.php"]
   },
   "mutators": {
     "@default": true,
