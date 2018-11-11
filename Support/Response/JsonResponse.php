@@ -104,7 +104,7 @@ class JsonResponse implements ResponseInterface
      */
     protected $headers;
 
-    public function __construct(array $data = null, int $code = 200, string $message = null)
+    public function __construct(array $data, int $code = 200, string $message = null)
     {
         $this->data = $data;
         $this->setCode($code);
@@ -170,7 +170,7 @@ class JsonResponse implements ResponseInterface
 
     private function getJsonContent(): string
     {
-        $json = \json_encode($this->getResponseData());
+        $json = \json_encode($this->getResponseData(), empty($this->getData()) ? \JSON_FORCE_OBJECT : 0);
 
         if (\json_last_error() !== \JSON_ERROR_NONE) {
             throw new JsonException(\sprintf('Can not encode $data to json, because %s', \json_last_error_msg()));

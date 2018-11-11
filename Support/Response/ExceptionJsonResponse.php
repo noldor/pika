@@ -10,6 +10,6 @@ class ExceptionJsonResponse extends JsonResponse
 
     public function __construct(int $code = 500, string $message = null)
     {
-        parent::__construct(null, $code, $message);
+        parent::__construct([], $code, $message);
     }
 }

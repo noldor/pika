@@ -33,7 +33,7 @@ class AuthTest extends BrowserTestCase
             [
                 'result' => false,
                 'message' => 'Invalid email or password!',
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );

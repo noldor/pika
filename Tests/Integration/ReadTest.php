@@ -33,7 +33,7 @@ class ReadTest extends BrowserTestCase
             [
                 'result' => false,
                 'message' => 'Can not find user with given token!',
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );

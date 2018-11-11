@@ -16,7 +16,7 @@ class ResponseTest extends TestCase
         $this->expectException(UnknownResponseCodeException::class);
         $this->expectExceptionMessage('Invalid response code: 600');
 
-        new JsonResponse(null, 600);
+        new JsonResponse([], 600);
     }
 
     public function testThatGetJsonContentThrowExceptionOnEncodeError(): void
@@ -29,7 +29,7 @@ class ResponseTest extends TestCase
 
     public function testGetStatus(): void
     {
-        $response = new JsonResponse(null, 205);
+        $response = new JsonResponse([], 205);
 
         $this->assertSame(205, $response->getCode());
     }

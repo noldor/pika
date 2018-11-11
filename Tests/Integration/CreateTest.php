@@ -22,7 +22,7 @@ class CreateTest extends BrowserTestCase
             [
                 'result' => false,
                 'message' => 'Missing fields: [name, password, dob, gender]',
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );
@@ -50,7 +50,7 @@ class CreateTest extends BrowserTestCase
             [
                 'result' => false,
                 'message' => 'Seem`s user email is not an email!',
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );

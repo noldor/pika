@@ -32,7 +32,7 @@ class UpdateTest extends BrowserTestCase
             [
                 'result' => false,
                 'message' => 'Can not find user with given token!',
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );
@@ -65,7 +65,7 @@ class UpdateTest extends BrowserTestCase
             [
                 'result' => true,
                 'message' => null,
-                'data' => null
+                'data' => []
             ],
             $this->jsonDecode($content)
         );

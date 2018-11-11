@@ -21,7 +21,7 @@ class ExceptionJsonResponseTest extends TestCase
             [
                 'result' => false,
                 'message' => 'some error',
-                'data' => null
+                'data' => []
             ],
             $data
         );

@@ -8,6 +8,6 @@ class EmptyJsonResponse extends JsonResponse
 {
     public function __construct()
     {
-        parent::__construct(null, 200, null);
+        parent::__construct([], 200, null);
     }
 }

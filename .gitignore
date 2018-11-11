@@ -1,5 +1,7 @@
 /coverage
 /.vagrant
+/Tests/test.db
+/Tests/test.db-journal
 /vendor
 /composer.lock
 /infection.log

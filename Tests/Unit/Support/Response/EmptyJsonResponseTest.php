@@ -13,7 +13,7 @@ class EmptyJsonResponseTest extends TestCase
     {
         $data = $this->getOutput(
             function () {
-                (new EmptyJsonResponse(['key' => 'value']))->send();
+                (new EmptyJsonResponse())->send();
             }
         );
 
@@ -21,7 +21,7 @@ class EmptyJsonResponseTest extends TestCase
             [
                 'result' => true,
                 'message' => null,
-                'data' => null
+                'data' => []
             ],
             $data
         );
