@@ -5,80 +5,79 @@ declare(strict_types=1);
 namespace Tests\Integration;
 
 use DateTime;
-use GuzzleHttp\Exception\ClientException;
 use Tests\BrowserTestCase;
 
 class CreateTest extends BrowserTestCase
 {
     public function testCreateUserWithoutAllNecessaryFields(): void
     {
-        try {
-            $this->http->request(
-                'post',
-                'api/user',
-                [
-                    'form_params' => [
-                        'email' => 'some@mail.ru'
-                    ]
-                ]
-            );
-        } catch (ClientException $exception) {
-            $this->assertSame(400, $exception->getResponse()->getStatusCode());
-            $this->assertJson(
-                '{"result":false,"message":"Missing fields: [name, password, dob, gender]","data":null}',
-                $exception->getResponse()->getBody()->getContents()
-            );
-        }
+        $response = $this->post('api/user', ['email' => 'some@mail.ru']);
+
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+        $this->assertJson($content);
+        $this->assertSame(
+            [
+                'result' => false,
+                'message' => 'Missing fields: [name, password, dob, gender]',
+                'data' => null
+            ],
+            $this->jsonDecode($content)
+        );
     }
 
     public function testCreateUserWhenValidationFailed(): void
     {
-        try {
-            $this->http->request(
-                'post',
-                'api/user',
-                [
-                    'form_params' => [
-                        'email' => 'some',
-                        'name' => 'some-name',
-                        'password' => '123456',
-                        'dob' => (new DateTime())->format(DateTime::ATOM),
-                        'gender' => '2'
-                    ]
-                ]
-            );
-        } catch (ClientException $exception) {
-            $this->assertSame(400, $exception->getResponse()->getStatusCode());
-            $this->assertSame(
-                '{"result":false,"message":"Seem`s user email is not an email!","data":null}',
-                $exception->getResponse()->getBody()->getContents()
-            );
-        }
+        $response = $this->post(
+            'api/user',
+            [
+                'email' => 'some',
+                'name' => 'some-name',
+                'password' => '123456',
+                'dob' => (new DateTime())->format(DateTime::ATOM),
+                'gender' => '2'
+            ]
+        );
+
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+        $this->assertJson($content);
+        $this->assertSame(
+            [
+                'result' => false,
+                'message' => 'Seem`s user email is not an email!',
+                'data' => null
+            ],
+            $this->jsonDecode($content)
+        );
     }
 
     public function testCreateUser(): void
     {
-        $result = $this->http->request(
-            'post',
+        $response = $this->post(
             'api/user',
             [
-                'form_params' => [
-                    'email' => $this->faker->email,
-                    'name' => $this->faker->userName,
-                    'password' => '123456',
-                    'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => '2'
-                ]
+                'email' => 'test@test.ru',
+                'name' => 'name',
+                'password' => '123456',
+                'dob' => (new DateTime())->format(DateTime::ATOM),
+                'gender' => '2'
             ]
         );
 
-        $this->assertSame(200, $result->getStatusCode());
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
         $this->assertArraySubset(
             [
                 'result' => true,
                 'message' => ''
             ],
-            \json_decode($result->getBody()->getContents(), true)
+            \json_decode($response->getBody()->getContents(), true)
         );
     }
 }

@@ -48,7 +48,7 @@ class UpdateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -68,7 +68,7 @@ class UpdateTest extends DatabaseTestCase
                     'name' => 'some name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -90,7 +90,7 @@ class UpdateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '1234',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -110,7 +110,7 @@ class UpdateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::RSS),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -154,7 +154,7 @@ class UpdateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1,
+                    'gender' => '1',
                     'phone' => '12345'
                 ]
             ),
@@ -217,7 +217,7 @@ class UpdateTest extends DatabaseTestCase
     public function testHandleCanUpdateUserGender(): void
     {
         (new Update(
-            Request::create(['access_token' => $this->token, 'gender' => 2]),
+            Request::create(['access_token' => $this->token, 'gender' => '2']),
             $this->userRepository
         ))->handle();
 

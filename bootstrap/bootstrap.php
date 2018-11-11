@@ -8,7 +8,8 @@ use Support\Request\Request;
 use Support\Response\ExceptionJsonResponse;
 use Support\Routing\Router;
 
-require 'config.php';
+require __DIR__ . '/config.php';
+require __DIR__ . '/functions.php';
 
 spl_autoload_register(
     function ($class) {
@@ -27,7 +28,7 @@ set_error_handler(
 );
 
 try {
-    $pdo = new PDO(PDO_DSN, '', '', PDO_OPTIONS);
+    $pdo = new PDO(PDO_DSN, null, null, PDO_OPTIONS);
 
     $userRepository = new User($pdo);
 

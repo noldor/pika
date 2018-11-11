@@ -22,7 +22,7 @@ class JWT
 
         $parts[] = static::json64Encode($payload);
 
-        $parts[] = base64_encode(static::sign(\implode('.', $parts), $key));
+        $parts[] = static::urlsafeB64Encode(static::sign(\implode('.', $parts), $key));
 
         return \implode('.', $parts);
     }
@@ -39,7 +39,7 @@ class JWT
 
         $header = static::json64Decode($header64);
         $payload = static::json64Decode($payload64);
-        $signature = \base64_decode($signature64, true);
+        $signature = static::urlsafeB64Decode($signature64);
 
         if ($header === null) {
             throw new UnexpectedValueException('Invalid token header!');
@@ -82,11 +82,21 @@ class JWT
 
     private static function json64Encode($data): string
     {
-        return \base64_encode(\json_encode($data));
+        return static::urlsafeB64Encode(\json_encode($data));
     }
 
     private static function json64Decode(string $data)
     {
-        return \json_decode(\base64_decode($data, true), true);
+        return \json_decode(static::urlsafeB64Decode($data), true);
+    }
+
+    private static function urlsafeB64Decode(string $data)
+    {
+        return base64_decode(strtr($data, '-_', '+/'), true);
+    }
+
+    private static function urlsafeB64Encode($input)
+    {
+        return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
     }
 }

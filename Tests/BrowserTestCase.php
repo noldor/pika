@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace Tests;
 
-use DateTime;
-use Faker\Factory;
 use GuzzleHttp\Client;
+use GuzzleHttp\Exception\ClientException;
+use Psr\Http\Message\ResponseInterface;
 use Symfony\Component\Panther\PantherTestCaseTrait;
 
-abstract class BrowserTestCase extends TestCase
+abstract class BrowserTestCase extends DatabaseTestCase
 {
     use PantherTestCaseTrait;
 
@@ -18,38 +18,44 @@ abstract class BrowserTestCase extends TestCase
      */
     protected $http;
 
-    /**
-     * @var \Faker\Generator
-     */
-    protected $faker;
-
-    public static function setUpBeforeClass(): void
+    public static function setUpBeforeClass()
     {
-        static::startWebServer(__DIR__ . '/../public');
+        parent::setUpBeforeClass();
+        static::startWebServer(__DIR__ . '/server');
     }
 
     protected function setUp(): void
     {
+        parent::setUp();
         $this->http = new Client(['base_uri' => static::$baseUri]);
-        $this->faker = Factory::create();
     }
 
-    public function createUser(string $email, string $name, string $password = '123456'): string
+    protected function post(string $url, array $data = []): ResponseInterface
     {
-        $result = $this->http->request(
-            'post',
-            'api/user',
-            [
-                'form_params' => [
-                    'email' => $email,
-                    'name' => $name,
-                    'password' => $password,
-                    'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => '2'
-                ]
-            ]
-        );
+        return $this->request('POST', $url, $data);
+    }
 
-        return \json_decode($result->getBody()->getContents(), true)['data']['access_token'];
+    protected function get(string $url, array $data = []): ResponseInterface
+    {
+        return $this->request('GET', $url, $data);
+    }
+
+    protected function put(string $url, array $data = []): ResponseInterface
+    {
+        return $this->request('PUT', $url, $data);
+    }
+
+    protected function delete(string $url, array $data = []): ResponseInterface
+    {
+        return $this->request('DELETE', $url, $data);
+    }
+
+    protected function request(string $method, string $url, array $data = []): ResponseInterface
+    {
+        try {
+            return $this->http->request($method, $url, ['query' => $data]);
+        } catch (ClientException $exception) {
+            return $exception->getResponse();
+        }
     }
 }

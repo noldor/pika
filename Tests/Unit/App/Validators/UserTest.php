@@ -20,12 +20,13 @@ class UserTest extends DatabaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->validator = new User(new UserRepository(static::$pdo));
+        $this->validator = new User(new UserRepository($this->pdo));
     }
 
     public function wrongEmailDataProvider(): array
     {
         return [
+            [''],
             ['test'],
             ['test@test.ru ']
         ];
@@ -58,9 +59,9 @@ class UserTest extends DatabaseTestCase
     public function wrongNamesProvider(): array
     {
         return [
+            [''],
             ['name+'],
-            ['some name'],
-            ['']
+            ['some name']
         ];
     }
 

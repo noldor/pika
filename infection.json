@@ -17,8 +17,23 @@
     "@default": true,
     "NotIdenticalNotEqual": false,
     "IdenticalEqual": false,
-    "CastInt": false,
-    "PublicVisibility": false
+    "TrueValue": {
+      "ignore": [
+        "Support\\Response\\JsonResponse::setCode"
+      ]
+    },
+    "IncrementInteger": {
+      "ignore": [
+        "Support\\Exceptions\\*",
+        "Support\\Response\\ExceptionJsonResponse::__construct"
+      ]
+    },
+    "DecrementInteger": {
+      "ignore": [
+        "Support\\Exceptions\\*",
+        "Support\\Response\\ExceptionJsonResponse::__construct"
+      ]
+    }
   },
   "testFramework": "phpunit",
   "phpUnit": {

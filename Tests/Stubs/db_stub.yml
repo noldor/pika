@@ -6,7 +6,7 @@ users:
     gender: 1
     dob: "2018-11-09T16:22:21+00:00"
     createdAt: "2018-11-09T16:22:21+00:00"
-    accessToken: eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOi0yMjQ0NDc5NjUwNzkzNDQ1NDgxfQ==.eyJlbWFpbCI6IjEtbWFpbEB0ZXN0LnJ1In0=.YrYjvuFdLdgI2WXTN+Plu7MN/bZUTOQbLI3FqR4pnHpgBTEchFdXUHYsuJeyIg+HKPjJuAqyT6ZDqNb/dChf0w==
+    accessToken: eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOi04ODI5MDQwMjA0MTA1ODYxMjMzfQ.eyJlbWFpbCI6IjEtbWFpbEB0ZXN0LnJ1In0.7Y6nAVFC44wuWN-MhJEzuvRCtwrOpkBBpDdqjfwAVH1FfTn03ddD1qWQnGV_lLxDE-6iKVM6pyegWl9kMe1xWg
     ip: 127.0.0.1
   - id: 2
     email: 2-mail@test.ru

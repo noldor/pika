@@ -71,7 +71,7 @@ class Router
         $route = $this->normalizeRoute($route);
 
         if (! $this->has($method, $route)) {
-            throw new UnknownRouteException("Unknown route <{$route}> for method <{$method}>!");
+            throw new UnknownRouteException("Unknown route '{$route}' for method '{$method}'!");
         }
 
         return $this->{$method}[$route];

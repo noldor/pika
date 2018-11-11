@@ -9,11 +9,11 @@ class Request implements RequestInterface
     /**
      * @var array
      */
-    private $post;
+    private $request;
 
-    public function __construct(array $post)
+    public function __construct(array $request)
     {
-        $this->post = $post;
+        $this->request = $request;
     }
 
     public static function create(array $data = null): RequestInterface
@@ -23,7 +23,7 @@ class Request implements RequestInterface
 
     public function has(string $name): bool
     {
-        return \array_key_exists($name, $this->post);
+        return \array_key_exists($name, $this->request) && $this->request[$name] !== '';
     }
 
     public function get(string $name, $default = null)
@@ -32,16 +32,16 @@ class Request implements RequestInterface
             return $default;
         }
 
-        return $this->post[$name];
+        return $this->request[$name];
     }
 
     public function toArray(): array
     {
-        return $this->post;
+        return $this->request;
     }
 
     public function keys(): array
     {
-        return \array_keys($this->post);
+        return \array_keys($this->request);
     }
 }

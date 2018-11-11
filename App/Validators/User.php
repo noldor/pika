@@ -103,7 +103,9 @@ class User
     public function isValidName(string $name): bool
     {
         if (\preg_match('/^[-.a-zа-яё0-9]+$/', $name) !== 1) {
-            throw new ValidationException('User name must contain only latin or russian characters, digits and . and -');
+            throw new ValidationException(
+                'User name must contain only latin or russian characters, digits and . and -'
+            );
         }
 
         if ($this->userRepository->hasName($name)) {

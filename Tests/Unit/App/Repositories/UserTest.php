@@ -6,7 +6,6 @@ namespace Tests\Unit\App\Repositories;
 
 use App\Repositories\User;
 use DateTime;
-use PHPUnit\DbUnit\DataSet\YamlDataSet;
 use Support\Exceptions\EntityNotFoundException;
 use Support\JWT;
 use Tests\DatabaseTestCase;
@@ -21,7 +20,7 @@ class UserTest extends DatabaseTestCase
     protected function setUp(): void
     {
         parent::setUp();
-        $this->repository = new User(static::$pdo);
+        $this->repository = new User($this->pdo);
     }
 
     public function testRepositoryCanFindUserById(): void
@@ -90,7 +89,8 @@ class UserTest extends DatabaseTestCase
 
     public function testRepositoryCanFindUserByAccessToken(): void
     {
-        $token = 'eyJhbGciOiJzaGE1MTIiLCJ0eXAiOiJKV1QiLCJraWQiOi0yMjQ0NDc5NjUwNzkzNDQ1NDgxfQ==.eyJlbWFpbCI6IjEtbWFpbEB0ZXN0LnJ1In0=.YrYjvuFdLdgI2WXTN+Plu7MN/bZUTOQbLI3FqR4pnHpgBTEchFdXUHYsuJeyIg+HKPjJuAqyT6ZDqNb/dChf0w==';
+        $token = $this->userRepository->findByEmail('1-mail@test.ru')->getAccessToken();
+
         $this->assertSame(
             [
                 'id' => 1,

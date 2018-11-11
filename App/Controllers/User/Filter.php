@@ -13,9 +13,9 @@ class Filter extends Controller
     {
         return new JsonResponse(
             $this->userRepository->filter(
-                $this->request->get('gender'),
-                $this->request->get('age_min'),
-                $this->request->get('age_max')
+                $this->request->has('gender') ? (int) $this->request->get('gender') : null,
+                $this->request->has('age_min') ? (int) $this->request->get('age_min') : null,
+                $this->request->has('age_max') ? (int) $this->request->get('age_max') : null
             )
         );
     }

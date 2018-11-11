@@ -7,25 +7,24 @@ namespace Tests\Integration;
 use Support\JWT;
 use Tests\BrowserTestCase;
 
-class ReadTest extends BrowserTestCase
+class UpdateTest extends BrowserTestCase
 {
     /**
      * @var \App\Models\User
      */
     private $user;
 
-    protected function setUp(): void
+    public function setUp(): void
     {
         parent::setUp();
         $this->user = $this->createUser('test@test.ru', 'name', JWT::encode(['email' => 'test@test.ru']));
     }
 
-    public function testReadUnknownUser(): void
+    public function testUpdateUnknownUser(): void
     {
         $response = $this->get('api/user', ['access_token' => JWT::encode(['email' => 'undefined@test.ru'])]);
 
         $this->assertSame(404, $response->getStatusCode());
-        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
         $content = $response->getBody()->getContents();
         $this->assertJson($content);
@@ -39,27 +38,42 @@ class ReadTest extends BrowserTestCase
         );
     }
 
-    public function testReadUser(): void
+    /**
+     * @covers \Support\Response\JsonResponse::send
+     * @covers \Support\Response\JsonResponse::sendHeaders
+     * @covers \Support\Response\JsonResponse::setResponseCode
+     * @covers ::sendHeader()
+     */
+    public function testUpdateUser(): void
     {
-        $response = $this->get('api/user', ['access_token' => $this->user->getAccessToken()]);
+        $response = $this->put(
+            'api/user',
+            [
+                'access_token' => $this->user->getAccessToken(),
+                'email' => 'new-mail@test.ru',
+                'name' => 'new-name'
+            ]
+        );
 
         $this->assertSame(200, $response->getStatusCode());
         $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
 
         $content = $response->getBody()->getContents();
+
         $this->assertJson($content);
         $this->assertSame(
             [
                 'result' => true,
                 'message' => null,
-                'data' => [
-                    'name' => $this->user->getName(),
-                    'dob' => $this->user->getDob(),
-                    'gender' => $this->user->getGender(),
-                    'phone' => $this->user->getPhone()
-                ]
+                'data' => null
             ],
             $this->jsonDecode($content)
+        );
+
+        $user = $this->userRepository->findByEmail('new-mail@test.ru');
+        $this->assertSame(
+            \array_merge($this->user->toArray(), ['email' => 'new-mail@test.ru', 'name' => 'new-name']),
+            $user->toArray()
         );
     }
 }

@@ -36,7 +36,7 @@ class Update extends GuardedController
         }
 
         if ($this->request->has('gender')) {
-            $this->user->setGender($this->request->get('gender'));
+            $this->user->setGender((int) $this->request->get('gender'));
         }
 
         if ($this->request->has('phone')) {

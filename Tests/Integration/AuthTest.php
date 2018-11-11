@@ -4,61 +4,57 @@ declare(strict_types=1);
 
 namespace Tests\Integration;
 
-use GuzzleHttp\Exception\ClientException;
+use Support\JWT;
 use Tests\BrowserTestCase;
 
 class AuthTest extends BrowserTestCase
 {
-    private $userToken;
-
     /**
-     * @var string
+     * @var \App\Models\User
      */
-    private $email;
+    private $user;
 
     protected function setUp(): void
     {
         parent::setUp();
-        $this->email = $this->faker->email;
-        $this->userToken = $this->createUser($this->email, $this->faker->userName);
+        $this->user = $this->createUser('test@test.ru', 'name', JWT::encode(['email' => 'test@test.ru']));
     }
 
     public function testAuthWithUnknownUser(): void
     {
-        try {
-            $this->http->request(
-                'POST',
-                'api/auth',
-                [
-                    'form_params' => [
-                        'email' => $this->email,
-                        'password' => '1234567'
-                    ]
-                ]
-            );
-        } catch (ClientException $exception) {
-            $this->assertSame(401, $exception->getCode());
-            $this->assertSame(
-                '{"result":false,"message":"Invalid email or password!","data":null}',
-                $exception->getResponse()->getBody()->getContents()
-            );
-        }
+        $response = $this->post('api/auth', ['email' => 'test@test.ru', 'password' => '1234567']);
+
+        $this->assertSame(401, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+        $this->assertJson($content);
+        $this->assertSame(
+            [
+                'result' => false,
+                'message' => 'Invalid email or password!',
+                'data' => null
+            ],
+            $this->jsonDecode($content)
+        );
     }
 
     public function testAuthWithExistedUser(): void
     {
-        $result = $this->http->request(
-            'POST',
-            'api/auth',
-            [
-                'form_params' => [
-                    'email' => $this->email,
-                    'password' => '123456'
-                ]
-            ]
+        $response = $this->post('api/auth', ['email' => 'test@test.ru', 'password' => '123456']);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+
+        $this->assertJson($content);
+
+        $this->assertArraySubset(
+            ['result' => true, 'message' => null],
+            $this->jsonDecode($content)
         );
 
-        $this->assertSame(200, $result->getStatusCode());
-        $this->assertJson($result->getBody()->getContents());
+        $this->assertArrayHasKey('access_token', $this->jsonDecode($content)['data']);
     }
 }

@@ -138,12 +138,8 @@ class JsonResponse implements ResponseInterface
 
     private function sendHeaders(): void
     {
-        if (\headers_sent()) {
-            return;
-        }
-
         foreach ($this->headers as $name => $value) {
-            \header("{$name}: {$value}", true);
+            \sendHeader("{$name}: {$value}");
         }
     }
 

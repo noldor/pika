@@ -24,7 +24,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -42,7 +42,7 @@ class CreateTest extends DatabaseTestCase
                     'email' => 'test@test.ru',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -60,7 +60,7 @@ class CreateTest extends DatabaseTestCase
                     'email' => 'test@test.ru',
                     'name' => 'name',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -78,7 +78,7 @@ class CreateTest extends DatabaseTestCase
                     'email' => 'test@test.ru',
                     'name' => 'name',
                     'password' => '123456',
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -115,7 +115,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -136,7 +136,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -155,7 +155,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'some name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -176,7 +176,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -197,7 +197,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '1234',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -216,7 +216,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::RSS),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -258,7 +258,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1,
+                    'gender' => '1',
                     'phone' => '12345'
                 ]
             ),
@@ -275,7 +275,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -295,7 +295,7 @@ class CreateTest extends DatabaseTestCase
                     'name' => 'name',
                     'password' => '123456',
                     'dob' => (new DateTime())->format(DateTime::ATOM),
-                    'gender' => 1
+                    'gender' => '1'
                 ]
             ),
             $this->userRepository
@@ -304,5 +304,6 @@ class CreateTest extends DatabaseTestCase
         $user = $this->userRepository->findByEmail('test@test.ru');
 
         $this->assertSame(['access_token' => $user->getAccessToken()], $response->getData());
+        $this->assertSame('test@test.ru', JWT::decode($user->getAccessToken())['email']);
     }
 }

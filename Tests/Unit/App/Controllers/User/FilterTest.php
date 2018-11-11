@@ -13,7 +13,7 @@ class FilterTest extends DatabaseTestCase
     public function testHandleCanFilterUsersByGender(): void
     {
         $response = (new Filter(
-            Request::create(['gender' => 1]),
+            Request::create(['gender' => '1']),
             $this->userRepository
         ))->handle();
 
@@ -51,7 +51,7 @@ class FilterTest extends DatabaseTestCase
     public function testHandleCanFilterUsersByGenderAndMinAge(): void
     {
         $response = (new Filter(
-            Request::create(['gender' => 1, 'age_min' => 4]),
+            Request::create(['gender' => '1', 'age_min' => '4']),
             $this->userRepository
         ))->handle();
 
@@ -71,7 +71,7 @@ class FilterTest extends DatabaseTestCase
     public function testHandleCanFilterUsersByGenderAndMinAgeAndMaxAge(): void
     {
         $response = (new Filter(
-            Request::create(['gender' => 1, 'age_min' => 1, 'age_max' => 5]),
+            Request::create(['gender' => '1', 'age_min' => '1', 'age_max' => '5']),
             $this->userRepository
         ))->handle();
 
@@ -97,7 +97,7 @@ class FilterTest extends DatabaseTestCase
     public function testHandleReturnAllUsersWithoutFilters(): void
     {
         $response = (new Filter(
-            Request::create([]),
+            Request::create(['gender' => '']),
             $this->userRepository
         ))->handle();
 

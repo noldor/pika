@@ -4,52 +4,57 @@ declare(strict_types=1);
 
 namespace Tests\Integration;
 
-use GuzzleHttp\Exception\ClientException;
 use Support\JWT;
 use Tests\BrowserTestCase;
 
 class DeleteTest extends BrowserTestCase
 {
+    /**
+     * @var \App\Models\User
+     */
+    private $user;
+
     protected function setUp(): void
     {
         parent::setUp();
-        $this->email = $this->faker->email;
-        $this->token = $this->createUser($this->email, $this->faker->userName);
+        $this->user = $this->createUser('test@test.ru', 'name', JWT::encode(['email' => 'test@test.ru']));
     }
 
     public function testDeleteUnExistedUser(): void
     {
-        try {
-            $this->http->request(
-                'DELETE',
-                'api/user',
-                [
-                    'query' => [
-                        'access_token' => JWT::encode(['email' => 'undefined@test.ru'])
-                    ]
-                ]
-            );
-        } catch (ClientException $exception) {
-            $this->assertSame(404, $exception->getResponse()->getStatusCode());
-            $this->assertSame(
-                '{"result":false,"message":"Can not find user with given token!","data":null}',
-                $exception->getResponse()->getBody()->getContents()
-            );
-        }
+        $response = $this->delete('api/user', ['access_token' => JWT::encode(['email' => 'undefined@test.ru'])]);
+
+        $this->assertSame(404, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+        $this->assertJson($content);
+        $this->assertSame(
+            [
+                'result' => false,
+                'message' => 'Can not find user with given token!',
+                'data' => null
+            ],
+            $this->jsonDecode($content)
+        );
     }
 
     public function testDelete(): void
     {
-        $result = $this->http->request(
-            'DELETE',
-            'api/user',
+        $response = $this->delete('api/user', ['access_token' => $this->user->getAccessToken()]);
+
+        $this->assertSame(200, $response->getStatusCode());
+        $this->assertSame('application/json', $response->getHeader('Content-Type')[0]);
+
+        $content = $response->getBody()->getContents();
+        $this->assertJson($content);
+        $this->assertSame(
             [
-                'query' => [
-                    'access_token' => $this->token
-                ]
-            ]
+                'result' => true,
+                'message' => null,
+                'data' => null
+            ],
+            $this->jsonDecode($content)
         );
-        $this->assertSame(200, $result->getStatusCode());
-        $this->assertSame('{"result":true,"message":null,"data":null}', $result->getBody()->getContents());
     }
 }

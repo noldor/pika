@@ -27,7 +27,6 @@
     "laravel/homestead": "^7.19",
     "phpunit/dbunit": "^4.0",
     "symfony/panther": "^0.2.0",
-    "guzzlehttp/guzzle": "^6.3",
-    "fzaninotto/faker": "^1.8"
+    "guzzlehttp/guzzle": "^6.3"
   }
 }

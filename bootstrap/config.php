@@ -2,8 +2,12 @@
 
 declare(strict_types=1);
 
+if (! defined('DB_PATH')) {
+    define('DB_PATH', dirname(__DIR__) . '/database.db');
+}
+
 if (! defined('PDO_DSN')) {
-    define('PDO_DSN', 'sqlite:' . __DIR__ . '/../database.db');
+    define('PDO_DSN', 'sqlite:' . DB_PATH);
 }
 
 if (! defined('APP_PATH')) {

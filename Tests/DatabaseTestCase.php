@@ -25,23 +25,30 @@ abstract class DatabaseTestCase extends TestCase
      */
     protected $userRepository;
 
-    protected static $pdo;
+    /**
+     * @var \PDO
+     */
+    protected $pdo;
 
     protected function setUp()
     {
         parent::setUp();
         $this->traitSetUp();
-        $this->userRepository = new UserRepository(static::$pdo);
+        $this->userRepository = new UserRepository($this->pdo);
+    }
+
+    public static function tearDownAfterClass()
+    {
+        parent::tearDownAfterClass();
+        \unlink(\DB_PATH);
     }
 
     public function getConnection(): DefaultConnection
     {
         if ($this->connection === null) {
-            if (static::$pdo === null) {
-                static::$pdo = new PDO(PDO_DSN);
-                static::$pdo->exec($this->getDatabaseDefinitionSql());
-            }
-            $this->connection = $this->createDefaultDBConnection(static::$pdo, ':memory:');
+            $this->pdo = new PDO(PDO_DSN);
+            $this->pdo->exec($this->getDatabaseDefinitionSql());
+            $this->connection = $this->createDefaultDBConnection($this->pdo);
         }
 
         return $this->connection;
@@ -72,7 +79,7 @@ abstract class DatabaseTestCase extends TestCase
             $phone
         );
 
-        (new UserRepository(static::$pdo))->create($user);
+        (new UserRepository($this->pdo))->create($user);
 
         return $user;
     }
@@ -92,7 +99,7 @@ abstract class DatabaseTestCase extends TestCase
               dob TEXT not null,
               createdAt TEXT not null,
               accessToken TEXT not null,
-              ip INTEGER not null,
+              ip TEXT not null,
               phone TEXT
             );
             

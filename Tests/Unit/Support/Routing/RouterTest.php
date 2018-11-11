@@ -129,7 +129,7 @@ class RouterTest extends TestCase
     public function testRouterGetHandlerThrowExceptionWhenRouteDoesNotExist(): void
     {
         $this->expectException(UnknownRouteException::class);
-        $this->expectExceptionMessage('Unknown route <any> for method <get>!');
+        $this->expectExceptionMessage("Unknown route 'any' for method 'get'!");
 
         $this->router->getHandler('GET', 'any');
     }
