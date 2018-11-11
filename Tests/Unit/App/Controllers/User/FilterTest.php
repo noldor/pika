@@ -19,29 +19,31 @@ class FilterTest extends DatabaseTestCase
 
         $this->assertSame(
             [
-                [
-                    'id' => 1,
-                    'name' => '1-name',
-                    'gender' => 1,
-                    'age' => 0
-                ],
-                [
-                    'id' => 2,
-                    'name' => '2-name',
-                    'gender' => 1,
-                    'age' => 0
-                ],
-                [
-                    'id' => 4,
-                    'name' => '4-name',
-                    'gender' => 1,
-                    'age' => 2
-                ],
-                [
-                    'id' => 7,
-                    'name' => '7-name',
-                    'gender' => 1,
-                    'age' => 5
+                'list' => [
+                    [
+                        'id' => 1,
+                        'name' => '1-name',
+                        'gender' => 1,
+                        'age' => 0
+                    ],
+                    [
+                        'id' => 2,
+                        'name' => '2-name',
+                        'gender' => 1,
+                        'age' => 0
+                    ],
+                    [
+                        'id' => 4,
+                        'name' => '4-name',
+                        'gender' => 1,
+                        'age' => 2
+                    ],
+                    [
+                        'id' => 7,
+                        'name' => '7-name',
+                        'gender' => 1,
+                        'age' => 5
+                    ]
                 ]
             ],
             $response->getData()
@@ -57,11 +59,13 @@ class FilterTest extends DatabaseTestCase
 
         $this->assertSame(
             [
-                [
-                    'id' => 7,
-                    'name' => '7-name',
-                    'gender' => 1,
-                    'age' => 5
+                'list' => [
+                    [
+                        'id' => 7,
+                        'name' => '7-name',
+                        'gender' => 1,
+                        'age' => 5
+                    ]
                 ]
             ],
             $response->getData()
@@ -77,17 +81,19 @@ class FilterTest extends DatabaseTestCase
 
         $this->assertSame(
             [
-                [
-                    'id' => 4,
-                    'name' => '4-name',
-                    'gender' => 1,
-                    'age' => 2
-                ],
-                [
-                    'id' => 7,
-                    'name' => '7-name',
-                    'gender' => 1,
-                    'age' => 5
+                'list' => [
+                    [
+                        'id' => 4,
+                        'name' => '4-name',
+                        'gender' => 1,
+                        'age' => 2
+                    ],
+                    [
+                        'id' => 7,
+                        'name' => '7-name',
+                        'gender' => 1,
+                        'age' => 5
+                    ]
                 ]
             ],
             $response->getData()
@@ -101,6 +107,6 @@ class FilterTest extends DatabaseTestCase
             $this->userRepository
         ))->handle();
 
-        $this->assertCount(7, $response->getData());
+        $this->assertCount(7, $response->getData()['list']);
     }
 }

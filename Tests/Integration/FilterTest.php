@@ -34,11 +34,13 @@ class FilterTest extends BrowserTestCase
                 'result' => true,
                 'message' => null,
                 'data' => [
-                    [
-                        'id' => 5,
-                        'name' => '5-name',
-                        'gender' => 2,
-                        'age' => 3
+                    'list' => [
+                        [
+                            'id' => 5,
+                            'name' => '5-name',
+                            'gender' => 2,
+                            'age' => 3
+                        ]
                     ]
                 ]
             ],

@@ -12,11 +12,14 @@ class Filter extends Controller
     public function handle(): ResponseInterface
     {
         return new JsonResponse(
-            $this->userRepository->filter(
-                $this->request->has('gender') ? (int) $this->request->get('gender') : null,
-                $this->request->has('age_min') ? (int) $this->request->get('age_min') : null,
-                $this->request->has('age_max') ? (int) $this->request->get('age_max') : null
-            )
+            [
+                'list' =>
+                    $this->userRepository->filter(
+                        $this->request->has('gender') ? (int) $this->request->get('gender') : null,
+                        $this->request->has('age_min') ? (int) $this->request->get('age_min') : null,
+                        $this->request->has('age_max') ? (int) $this->request->get('age_max') : null
+                    )
+            ]
         );
     }
 }
