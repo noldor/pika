@@ -7,3 +7,6 @@
 # If you have user-specific configurations you would like
 # to apply, you may also create user-customizations.sh,
 # which will be run after this script.
+
+sudo sed -i 's/location ~ \\\.php\$ {/location ~ \\index\.php\$ {/' /etc/nginx/sites-available/pika.test
+sudo service nginx restart
