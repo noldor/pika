@@ -7,7 +7,9 @@ namespace App\Repositories;
 use App\Models\User as UserModel;
 use PDO;
 use PDOStatement;
+use RuntimeException;
 use Support\Exceptions\EntityNotFoundException;
+use Support\JWT;
 
 class User
 {
@@ -98,7 +100,7 @@ SQL;
 
         $user = $statement->fetchObject(UserModel::class);
 
-        if ($user === false) {
+        if ($user === false || JWT::decode($token)['email'] !== $user->getEmail()) {
             throw new EntityNotFoundException('Can not find user with given token!');
         }
 
